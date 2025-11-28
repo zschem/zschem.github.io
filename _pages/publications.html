@@ -1,0 +1,32 @@
+---
+layout: single
+title: "Publications"
+permalink: /publications/
+author_profile: true
+---
+
+{% for pub in site.publications %}
+<div class="list__item">
+  <article
+    class="archive__item"
+    itemscope
+    itemtype="http://schema.org/CreativeWork"
+  >
+    <h2 class="archive__item-title" itemprop="headline">
+      <a href="{{ pub.url }}" rel="noopener" , target="_blank"
+        >{{ pub.title }}</a
+      >
+    </h2>
+    <p><i>{{ pub.publisher }}</i>, {{ pub.year }}</p>
+    <p class="archive__item-excerpt" itemprop="description">
+      {{ pub.description }}
+    </p>
+
+    <div class="citation">
+      {{ pub.authors }}
+      <i>{{ pub.title }}</i>
+      {{ pub.publisher }}, {{ pub.year }}.
+    </div>
+  </article>
+</div>
+{% endfor %}
