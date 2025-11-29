@@ -1,5 +1,5 @@
 ---
-title: "Trainings"
+title: "Teaching"
 layout: single
 permalink: /trainings/
 ---
@@ -16,6 +16,9 @@ permalink: /trainings/
       {{ edu.duration }}<br />
       <em>{{ edu.location }}</em>
     </div>
+  </div>
+  <div class="archive__item-excerpt" itemprop="description">
+    {{ edu.content | markdownify }}
   </div>
 </div>
 {% endfor %}

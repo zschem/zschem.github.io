@@ -12,7 +12,7 @@ site_theme: "default"
 title: "About"
 title_separator: "-"
 name: &name "Muhammad Zeeshan Shah"
-description: &description "PhD Candidate Eduction Culture and Leadership"
+description: &description "PhD Chemistry (Focused on Polymers, Lipids and Nanodiscs)"
 url: https://zschem.github.io # the base hostname & protocol for your site e.g. "https://[your GitHub username].github.io"
 baseurl: "" # the subpath of your site, e.g. "/blog"
 repository: "https://github.com/zschem/zschem.github.io/"
@@ -221,10 +221,13 @@ collections:
   education:
     output: true
     permalink: /:collection/:path/
-  grants:
+  # grants:
+  #   output: true
+  #   permalink: /:collection/:path/
+  experience:
     output: true
     permalink: /:collection/:path/
-  experience:
+  presentations:
     output: true
     permalink: /:collection/:path/
   trainings:
@@ -234,6 +237,9 @@ collections:
     output: true
     permalink: /:collection/:path/
   volunteering:
+    output: true
+    permalink: /:collection/:path/
+  awards:
     output: true
     permalink: /:collection/:path/
 # These settings control how pages and collections are included in the site
@@ -291,6 +297,16 @@ defaults:
       layout: talk
       author_profile: true
       share: true
+
+  # _awards
+  - scope:
+      path: ""
+      type: awards
+    values:
+      layout: single
+      author_profile: true
+      share: true
+      comments: true
 
 # Sass/SCSS
 sass:
