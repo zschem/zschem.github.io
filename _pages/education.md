@@ -4,15 +4,6 @@ layout: single
 permalink: /education/
 ---
 
-<strong>Relevant Coursework</strong>
-<br />
-<em
-          >Social Justice Transformation, Educational Policy Analysis,
-Curriculum Pedagogy Diversity, Education Democratic Society, Power
-Knowledge Difference, Ethics and Values in Education, Qualitative
-Research.</em
-        >
-
 <hr />
 {% for edu in site.education %}
 
