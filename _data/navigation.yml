@@ -6,7 +6,7 @@
 
 main:
   - title: "CV"
-    url: /files/hassan_cv.pdf
+    url: /files/zeeshan_cv.pdf
 
   - title: "Education"
     url: /education/
@@ -23,14 +23,14 @@ main:
   - title: "Trainings"
     url: /trainings/
 
-  - title: "Conferences"
-    url: /conferences/
+  # - title: "Conferences"
+  #   url: /conferences/
 
-  - title: "Volunteering"
-    url: /volunteering/
+  # - title: "Volunteering"
+  #   url: /volunteering/
 
-  # - title: "Talks"
-  #   url: /talks/
+  - title: "Talks"
+    url: /talks/
 
   # - title: "Teaching"
   #   url: /teaching/

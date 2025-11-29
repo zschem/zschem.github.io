@@ -11,11 +11,11 @@ locale: "en-US"
 site_theme: "default"
 title: "About"
 title_separator: "-"
-name: &name "Syed Hassan Raza"
+name: &name "Muhammad Zeeshan Shah"
 description: &description "PhD Candidate Eduction Culture and Leadership"
-url: https://syedhassanrazaohio.github.io # the base hostname & protocol for your site e.g. "https://[your GitHub username].github.io"
+url: https://zschem.github.io # the base hostname & protocol for your site e.g. "https://[your GitHub username].github.io"
 baseurl: "" # the subpath of your site, e.g. "/blog"
-repository: "https://github.com/syedhassanrazaohio/syedhassanrazaohio.github.io/"
+repository: "https://github.com/zschem/zschem.github.io/"
 
 # Site Author - The following control what appear as part of the author content on the side bar.
 #               If a field is blank the icon and link will not appear, otherwise it will be shown.
@@ -23,17 +23,17 @@ repository: "https://github.com/syedhassanrazaohio/syedhassanrazaohio.github.io/
 author:
   # Biographic information
   avatar: "profile.jpeg"
-  name: "Syed Hassan Raza"
+  name: "Muhammad Zeeshan Shah"
   pronouns: # example: "she/her"
-  bio: "PhD Candidate Leadership, Culture and Curriculum"
+  bio: "PhD Chemistry (Focused on Polymers, Lipids and Nanodiscs)"
   location: "Oxford, OH"
   employer: "Miami University"
   uri: # URL
-  email: "razash@miamioh.edu"
+  email: "mzeeshanshahkazmi@gmail.com"
 
   # Academic websites
   arxiv: # URL - Update with the correct link to your profile
-  googlescholar: "https://scholar.google.com/citations?hl=en&user=R7NhHhYAAAAJ"
+  googlescholar: "https://scholar.google.com/citations?user=PmU0ZBcAAAAJ&hl=en&oi=ao"
   impactstory: # URL
   orcid: #"http://orcid.org/yourorcidurl"
   semantic: # URL
@@ -59,7 +59,7 @@ author:
   keybase: # Username
   instagram: # Username
   lastfm: # Username
-  linkedin: syed-hassan-raza-31531618
+  linkedin: muhammad-zeeshan-shah-kazmi
   mastodon: # URL
   medium: # URL
   pinterest: # Username
@@ -72,7 +72,7 @@ author:
   weibo: # Username
   wikipedia: # Username
   xing: # Username
-  youtube: societyeducationandlanguag84
+  youtube: # societyeducationandlanguag84
   zhihu: # Username
 
 # Publication Category - The following the list of publication categories and their headings

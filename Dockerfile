@@ -14,6 +14,7 @@ WORKDIR /usr/src/app
 COPY Gemfile ./
 
 # Install bundler and dependencies
+USER root 
 RUN gem install bundler:2.3.26 && bundle install
 
 # Command to serve the Jekyll site
