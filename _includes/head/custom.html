@@ -38,4 +38,33 @@
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
 ></script>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const toggle = document.querySelector('.theme-toggle');
+  const lightTheme = document.getElementById('theme_source');
+  const darkTheme = document.getElementById('theme_source_2');
+  const storedTheme = sessionStorage.getItem('theme');
+
+  if (storedTheme === 'dark') {
+    lightTheme.setAttribute('rel', 'stylesheet alternate');
+    darkTheme.setAttribute('rel', 'stylesheet');
+  } else {
+    lightTheme.setAttribute('rel', 'stylesheet');
+    darkTheme.setAttribute('rel', 'stylesheet alternate');
+  }
+
+  toggle.addEventListener('click', function() {
+    if (lightTheme.getAttribute('rel') === 'stylesheet') {
+      lightTheme.setAttribute('rel', 'stylesheet alternate');
+      darkTheme.setAttribute('rel', 'stylesheet');
+      sessionStorage.setItem('theme', 'dark');
+    } else {
+      lightTheme.setAttribute('rel', 'stylesheet');
+      darkTheme.setAttribute('rel', 'stylesheet alternate');
+      sessionStorage.setItem('theme', 'light');
+    }
+  });
+});
+</script>
+
 <!-- end custom head snippets -->

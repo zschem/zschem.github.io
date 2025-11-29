@@ -18,4 +18,9 @@
 <!-- For all browsers -->
 <link rel="stylesheet" href="{{ base_path }}/assets/css/main.css">
 
+{% if site.minimal_mistakes_skin2 %}
+<link id="theme_source" rel="stylesheet" href="{{ base_path }}/assets/css/skins/default.css" media="(prefers-color-scheme: light)">
+<link id="theme_source_2" rel="stylesheet alternate" href="{{ base_path }}/assets/css/skins/dark.css" media="(prefers-color-scheme: dark)">
+{% endif %}
+
 <meta http-equiv="cleartype" content="on">
