@@ -295,7 +295,7 @@
         </div>
 
         <!-- Interactive Inputs for Step 1 -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-[#f8f8f7] p-4 rounded border border-[var(--border)]">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 bg-[#f8f8f7] p-4 rounded border border-[var(--border)]">
           <div class="space-y-1.5">
             <div class="flex items-center justify-between">
               <label for="inputTargetPolymer" class="text-xs font-bold uppercase tracking-wider text-[#216890]">
@@ -316,11 +316,11 @@
             </div>
             <div class="flex flex-wrap items-center gap-1.5 pt-1">
               <span class="text-xs text-[var(--muted-foreground)]">Quick set:</span>
-              <button onclick="setTargetPolymerPreset(1)" class="px-2 py-0.5 text-xs rounded border border-[var(--border)] bg-white hover:border-[#216890] cursor-pointer">1.0000 g</button>
-              <button onclick="setTargetPolymerPreset(2)" class="px-2 py-0.5 text-xs rounded border border-[var(--border)] bg-white hover:border-[#216890] cursor-pointer">2.0000 g</button>
-              <button onclick="setTargetPolymerPreset(5)" class="px-2 py-0.5 text-xs rounded border border-[var(--border)] bg-white hover:border-[#216890] cursor-pointer">5.0000 g</button>
-              <button onclick="setTargetPolymerPreset(10)" class="px-2 py-0.5 text-xs rounded border border-[var(--border)] bg-white hover:border-[#216890] cursor-pointer">10.0000 g</button>
-              <button onclick="resetStep1Default()" class="px-2 py-0.5 text-xs rounded border border-[#216890]/40 bg-[#216890]/10 text-[#216890] font-semibold hover:bg-[#216890]/20 cursor-pointer">Lab Sheet Default</button>
+              <button onclick="setTargetPolymerPreset(1)" class="px-2 py-0.5 text-xs rounded border border-[var(--border)] bg-white hover:border-[#216890] cursor-pointer">1.0 g</button>
+              <button onclick="setTargetPolymerPreset(2)" class="px-2 py-0.5 text-xs rounded border border-[var(--border)] bg-white hover:border-[#216890] cursor-pointer">2.0 g</button>
+              <button onclick="setTargetPolymerPreset(5)" class="px-2 py-0.5 text-xs rounded border border-[var(--border)] bg-white hover:border-[#216890] cursor-pointer">5.0 g</button>
+              <button onclick="setTargetPolymerPreset(10)" class="px-2 py-0.5 text-xs rounded border border-[var(--border)] bg-white hover:border-[#216890] cursor-pointer">10.0 g</button>
+              <button onclick="resetStep1Default()" class="px-2 py-0.5 text-xs rounded border border-[#216890]/40 bg-[#216890]/10 text-[#216890] font-semibold hover:bg-[#216890]/20 cursor-pointer">Sheet Default</button>
             </div>
           </div>
 
@@ -329,7 +329,7 @@
               <label for="inputStyreneGrams" class="text-xs font-bold uppercase tracking-wider text-[#216890]">
                 Option B: Starting Styrene Mass
               </label>
-              <span class="text-xs text-[var(--muted-foreground)]">Auto-syncs with Polymer Needed</span>
+              <span class="text-xs text-[var(--muted-foreground)]">Auto-syncs with Yield</span>
             </div>
             <div class="flex items-center gap-2">
               <input
@@ -343,8 +343,40 @@
               <span class="text-sm font-semibold text-[var(--muted-foreground)] shrink-0">grams</span>
             </div>
             <p class="text-xs text-[var(--muted-foreground)] pt-1">
-              Changing either value automatically scales all reagents and updates the procedure below.
+              Changing either mass automatically scales all reagents below.
             </p>
+          </div>
+
+          <div class="space-y-1.5">
+            <div class="flex items-center justify-between">
+              <label for="inputTargetMnKda" class="text-xs font-bold uppercase tracking-wider text-[#a51c30]">
+                Target Theoretical Molecular Weight (<i>M</i><sub>n</sub>)
+              </label>
+              <span id="s1FeedRatioBadge" class="text-xs font-mono font-bold text-[#a51c30]">75 : 25 : 1</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <input
+                id="inputTargetMnKda"
+                type="number"
+                step="0.1"
+                min="1.0"
+                max="100.0"
+                value="10.61"
+                oninput="onTargetMnKdaInput(this.value)"
+                class="w-full bg-white border border-[#cccccc] focus:border-[#a51c30] rounded px-3 py-2 text-base font-mono font-bold text-[#a51c30] focus:outline-none"
+              />
+              <span class="text-sm font-semibold text-[var(--muted-foreground)] shrink-0">kDa</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-1.5 pt-1">
+              <span class="text-xs text-[var(--muted-foreground)]">Choose kDa:</span>
+              <button onclick="setTargetMnKdaPreset(5.0)" class="px-2 py-0.5 text-xs rounded border border-[var(--border)] bg-white hover:border-[#a51c30] cursor-pointer">5.0 kDa</button>
+              <button onclick="setTargetMnKdaPreset(7.5)" class="px-2 py-0.5 text-xs rounded border border-[var(--border)] bg-white hover:border-[#a51c30] cursor-pointer">7.5 kDa</button>
+              <button onclick="setTargetMnKdaPreset(8.95)" class="px-2 py-0.5 text-xs rounded border border-[var(--border)] bg-white hover:border-[#a51c30] cursor-pointer">8.95 kDa</button>
+              <button onclick="setTargetMnKdaDefaultForRatio()" class="px-2 py-0.5 text-xs rounded border border-[#a51c30]/40 bg-[#a51c30]/10 text-[#a51c30] font-semibold hover:bg-[#a51c30]/20 cursor-pointer">Default (25 MAN)</button>
+              <button onclick="setTargetMnKdaPreset(12.0)" class="px-2 py-0.5 text-xs rounded border border-[var(--border)] bg-white hover:border-[#a51c30] cursor-pointer">12.0 kDa</button>
+              <button onclick="setTargetMnKdaPreset(15.0)" class="px-2 py-0.5 text-xs rounded border border-[var(--border)] bg-white hover:border-[#a51c30] cursor-pointer">15.0 kDa</button>
+              <button onclick="setTargetMnKdaPreset(20.0)" class="px-2 py-0.5 text-xs rounded border border-[var(--border)] bg-white hover:border-[#a51c30] cursor-pointer">20.0 kDa</button>
+            </div>
           </div>
         </div>
 
@@ -435,7 +467,7 @@
                 <tr>
                   <td class="py-2 px-3 font-sans">Monomer 2</td>
                   <td class="py-2 px-3 font-sans font-semibold">Maleic Anhydride (MAN)</td>
-                  <td class="py-2 px-3 font-bold">25</td>
+                  <td id="t1RatioMan" class="py-2 px-3 font-bold">25</td>
                   <td class="py-2 px-3">98.06</td>
                   <td id="t1MolMan" class="py-2 px-3">0.011716</td>
                   <td id="t1MassMan" class="py-2 px-3 font-bold text-[#216890]">1.1489 g</td>
@@ -475,7 +507,7 @@
           </div>
           <ol class="space-y-2.5 text-sm leading-relaxed list-decimal list-inside">
             <li>
-              <strong>Reagent Preparation:</strong> Combine <span id="proc1Sty" class="pill-blue">3.6608 g</span> of styrene, <span id="proc1Man" class="pill-blue">1.1489 g</span> of maleic anhydride (MAN), and <span id="proc1Padtc" class="pill-blue">0.1643 g (164.3 mg)</span> of the chain transfer agent PADTC in a vial. Dissolve the mixture completely in <span id="proc1Diox" class="pill-blue">4.9969 g (~4.84 mL)</span> of dry 1,4-dioxane, then add <span id="proc1Ahcn" class="pill-blue">0.0229 g (22.9 mg)</span> of the initiator (AHCN) and dissolve thoroughly.
+              <strong>Reagent Preparation (Target <i>M</i><sub>n</sub> = <span id="proc1TargetMnKda" class="pill-blue">10.61 kDa</span>, Feed Ratio <span id="proc1RatioText" class="pill-blue">75 : 25 : 1</span>):</strong> Combine <span id="proc1Sty" class="pill-blue">3.6608 g</span> of styrene, <span id="proc1Man" class="pill-blue">1.1489 g</span> of maleic anhydride (MAN), and <span id="proc1Padtc" class="pill-blue">0.1643 g (164.3 mg)</span> of the chain transfer agent PADTC in a vial. Dissolve the mixture completely in <span id="proc1Diox" class="pill-blue">4.9969 g (~4.84 mL)</span> of dry 1,4-dioxane, then add <span id="proc1Ahcn" class="pill-blue">0.0229 g (22.9 mg)</span> of the initiator (AHCN) and dissolve thoroughly.
             </li>
             <li>
               <strong>Reaction Setup:</strong> Transfer the reaction solution into a round-bottom flask equipped with a magnetic stir bar. Collect and set aside a small aliquot (~50 &mu;L) of the unreacted solution as a baseline (<span class="font-mono">t = 0</span>) for <sup>1</sup>H NMR conversion tracking, then seal the flask with a rubber septum.
@@ -540,30 +572,30 @@
             </div>
           </div>
 
-          <!-- Editable Polymer Mn (Shared with Step 3) -->
+          <!-- Editable Polymer Mn (Shared with Step 1 & Step 3) -->
           <div class="space-y-1.5">
             <div class="flex items-center justify-between">
               <label for="inputPolymerMn2" class="text-xs font-bold uppercase tracking-wider text-[#a51c30]">
-                Polymer <i>M</i><sub>n</sub> (Molecular Weight)
+                Target Polymer <i>M</i><sub>n</sub> (in kDa)
               </label>
-              <span class="text-xs text-[var(--muted-foreground)]">Used in Step 2 &amp; Step 3</span>
+              <span class="text-xs text-[var(--muted-foreground)]">Synced with Step 1 &amp; Step 3</span>
             </div>
             <div class="flex items-center gap-2">
               <input
                 id="inputPolymerMn2"
                 type="number"
-                step="50"
-                min="500"
-                value="8948"
-                oninput="onPolymerMnChange(this.value)"
+                step="0.1"
+                min="1.0"
+                value="10.61"
+                oninput="onTargetMnKdaInput(this.value)"
                 class="w-full bg-white border border-[#cccccc] focus:border-[#a51c30] rounded px-3 py-2 text-base font-mono font-bold focus:outline-none"
               />
-              <span class="text-sm font-semibold text-[var(--muted-foreground)] shrink-0">g/mol</span>
+              <span class="text-sm font-semibold text-[var(--muted-foreground)] shrink-0">kDa</span>
             </div>
             <div class="flex flex-wrap gap-1.5 pt-1">
-              <button onclick="onPolymerMnChange(8948)" class="px-2 py-0.5 text-xs rounded border border-[#a51c30]/35 bg-[#a51c30]/10 text-[#a51c30] font-semibold cursor-pointer">GPC Default (8,948)</button>
-              <button onclick="onPolymerMnChange(8344)" class="px-2 py-0.5 text-xs rounded border border-[var(--border)] bg-white cursor-pointer">SMA 2:1 Theo (8,344)</button>
-              <button onclick="onPolymerMnChange(11290)" class="px-2 py-0.5 text-xs rounded border border-[var(--border)] bg-white cursor-pointer">SMA 3:1 Theo (11,290)</button>
+              <button onclick="setTargetMnKdaPreset(8.95)" class="px-2 py-0.5 text-xs rounded border border-[#a51c30]/35 bg-[#a51c30]/10 text-[#a51c30] font-semibold cursor-pointer">8.95 kDa (GPC)</button>
+              <button onclick="setTargetMnKdaPreset(8.01)" class="px-2 py-0.5 text-xs rounded border border-[var(--border)] bg-white cursor-pointer">8.01 kDa (SMA 2:1)</button>
+              <button onclick="setTargetMnKdaPreset(10.61)" class="px-2 py-0.5 text-xs rounded border border-[var(--border)] bg-white cursor-pointer">10.61 kDa (SMA 3:1)</button>
             </div>
           </div>
         </div>
@@ -705,24 +737,24 @@
           <div class="space-y-1.5">
             <div class="flex items-center justify-between">
               <label for="inputPolymerMn3" class="text-xs font-bold uppercase tracking-wider text-[#166534]">
-                Polymer <i>M</i><sub>n</sub> (Molecular Weight)
+                Target Polymer <i>M</i><sub>n</sub> (in kDa)
               </label>
-              <span class="text-xs text-[var(--muted-foreground)]">Synced with Step 2</span>
+              <span class="text-xs text-[var(--muted-foreground)]">Synced with Step 1 &amp; Step 2</span>
             </div>
             <div class="flex items-center gap-2">
               <input
                 id="inputPolymerMn3"
                 type="number"
-                step="50"
-                min="500"
-                value="8948"
-                oninput="onPolymerMnChange(this.value)"
+                step="0.1"
+                min="1.0"
+                value="10.61"
+                oninput="onTargetMnKdaInput(this.value)"
                 class="w-full bg-white border border-[#cccccc] focus:border-[#166534] rounded px-3 py-2 text-base font-mono font-bold focus:outline-none"
               />
-              <span class="text-sm font-semibold text-[var(--muted-foreground)] shrink-0">g/mol</span>
+              <span class="text-sm font-semibold text-[var(--muted-foreground)] shrink-0">kDa</span>
             </div>
             <p class="text-xs text-[var(--muted-foreground)] pt-1">
-              Determines moles of polymer and moles of maleic anhydride units (&times;25) for NaOH calculation.
+              Determines moles of polymer and moles of maleic anhydride units (&times;<span id="s3ManUnitsNote">25.0</span>) for NaOH calculation.
             </p>
           </div>
         </div>
@@ -752,7 +784,7 @@
         <!-- Collapsible Mole Ratios Table for Step 3 -->
         <div id="calcTable3" class="hidden space-y-2 pt-1">
           <div class="text-xs font-bold uppercase tracking-wider text-[#166534]">
-            Step 3 Hydrolysis Stoichiometry Table (<i>M</i><sub>n</sub> = <span id="t3HeaderMn">8,948</span> g/mol &bull; 25 Anhydride Units/Chain &bull; 4&times; Excess NaOH)
+            Step 3 Hydrolysis Stoichiometry Table (<i>M</i><sub>n</sub> = <span id="t3HeaderMn">10,613</span> g/mol &bull; <span id="t3HeaderManUnits">25.0</span> Anhydride Units/Chain &bull; 4&times; Excess NaOH)
           </div>
           <div class="overflow-x-auto rounded border border-[var(--border)]">
             <table class="w-full text-left text-xs">
@@ -761,7 +793,7 @@
                   <th class="py-2 px-3">Polymer (g)</th>
                   <th class="py-2 px-3 font-mono"><i>M</i><sub>n</sub> (g/mol)</th>
                   <th class="py-2 px-3 font-mono">Moles Polymer</th>
-                  <th class="py-2 px-3 font-mono">Moles Anhydride (&times;25)</th>
+                  <th class="py-2 px-3 font-mono">Moles Anhydride (&times;<span id="t3ColManUnits">25.0</span>)</th>
                   <th class="py-2 px-3 font-mono">NaOH Excess</th>
                   <th class="py-2 px-3 font-mono">Moles NaOH</th>
                   <th class="py-2 px-3 font-mono">Mass NaOH (g)</th>
@@ -1135,11 +1167,22 @@
     let currentRatio = '3:1';
     let showCalculations = false;
     let currentStep1YieldG = 3.747663;
-    let currentPolymerMn = 8948.0;
+    let currentTargetMnKda = 10.61335;
+    let currentPolymerMn = 10613.35;
+
+    function getDefaultMnKdaForRatio(ratioMode) {
+      const r = ratioMode === '3:1' ? 3 : 2;
+      const defaultManUnits = 25;
+      const mnGPerMol = MW.PADTC + defaultManUnits * (r * MW.STYRENE + MW.MAN);
+      return mnGPerMol / 1000.0;
+    }
 
     function getStep1Factors(ratioMode) {
-      const styRatio = ratioMode === '3:1' ? 75 : 50;
-      const manRatio = 25;
+      const r = ratioMode === '3:1' ? 3 : 2;
+      const blockMw = r * MW.STYRENE + MW.MAN;
+      const targetMnGPerMol = Math.max(MW.PADTC + blockMw, currentTargetMnKda * 1000.0);
+      const manRatio = (targetMnGPerMol - MW.PADTC) / blockMw;
+      const styRatio = r * manRatio;
       const ctaRatio = 1;
       const ahcnRatio = 0.2;
 
@@ -1161,7 +1204,8 @@
         ctaRatio,
         ahcnRatio,
         totalReagentsPerGSty,
-        yieldPerGSty
+        yieldPerGSty,
+        targetMnGPerMol
       };
     }
 
@@ -1176,9 +1220,45 @@
         btn21.className = 'px-3.5 py-1.5 rounded text-xs font-bold transition cursor-pointer bg-[#a51c30] text-white border-none';
         btn31.className = 'px-3.5 py-1.5 rounded text-xs font-bold transition cursor-pointer bg-transparent text-[#4a4a4a] hover:text-[#111111] border-none';
       }
-      document.getElementById('s1RatioLabel').textContent = 'SMA ' + ratioMode + (ratioMode === '3:1' ? ' (75:25)' : ' (50:25)');
+      setTargetMnKdaDefaultForRatio();
+    }
+
+    function setTargetMnKdaDefaultForRatio() {
+      const defKda = getDefaultMnKdaForRatio(currentRatio);
+      setTargetMnKdaPreset(defKda);
+    }
+
+    function setTargetMnKdaPreset(kdaVal) {
+      const kda = parseFloat(kdaVal);
+      if (isNaN(kda) || kda <= 0.5) return;
+      currentTargetMnKda = kda;
+      currentPolymerMn = Math.round(kda * 1000);
+      document.getElementById('inputTargetMnKda').value = kda.toFixed(2);
+      document.getElementById('inputPolymerMn2').value = kda.toFixed(2);
+      document.getElementById('inputPolymerMn3').value = kda.toFixed(2);
       const styG = parseFloat(document.getElementById('inputStyreneGrams').value) || SHEET_DEFAULT_STYRENE_G;
       updateFromStyreneGrams(styG, true);
+      updateStep2();
+      updateStep3();
+      const s4G = parseFloat(document.getElementById('inputStep4PolymerG').value) || 0.0075;
+      onStep4PolymerInput(s4G);
+    }
+
+    function onTargetMnKdaInput(val) {
+      const kda = parseFloat(val);
+      if (isNaN(kda) || kda <= 0.5) return;
+      currentTargetMnKda = kda;
+      currentPolymerMn = Math.round(kda * 1000);
+      const activeId = document.activeElement ? document.activeElement.id : '';
+      if (activeId !== 'inputTargetMnKda') document.getElementById('inputTargetMnKda').value = kda.toFixed(2);
+      if (activeId !== 'inputPolymerMn2') document.getElementById('inputPolymerMn2').value = kda.toFixed(2);
+      if (activeId !== 'inputPolymerMn3') document.getElementById('inputPolymerMn3').value = kda.toFixed(2);
+      const styG = parseFloat(document.getElementById('inputStyreneGrams').value) || SHEET_DEFAULT_STYRENE_G;
+      updateFromStyreneGrams(styG, true);
+      updateStep2();
+      updateStep3();
+      const s4G = parseFloat(document.getElementById('inputStep4PolymerG').value) || 0.0075;
+      onStep4PolymerInput(s4G);
     }
 
     function onTargetPolymerInput(val) {
@@ -1211,13 +1291,22 @@
     }
 
     function resetStep1Default() {
+      currentTargetMnKda = getDefaultMnKdaForRatio(currentRatio);
+      currentPolymerMn = Math.round(currentTargetMnKda * 1000);
+      document.getElementById('inputTargetMnKda').value = currentTargetMnKda.toFixed(2);
+      document.getElementById('inputPolymerMn2').value = currentTargetMnKda.toFixed(2);
+      document.getElementById('inputPolymerMn3').value = currentTargetMnKda.toFixed(2);
       document.getElementById('inputStyreneGrams').value = SHEET_DEFAULT_STYRENE_G.toFixed(4);
       updateFromStyreneGrams(SHEET_DEFAULT_STYRENE_G, true);
+      updateStep2();
+      updateStep3();
+      const s4G = parseFloat(document.getElementById('inputStep4PolymerG').value) || 0.0075;
+      onStep4PolymerInput(s4G);
     }
 
     function renderStep1(styG, yieldG) {
       currentStep1YieldG = yieldG;
-      const { styRatio, manRatio } = getStep1Factors(currentRatio);
+      const { styRatio, manRatio, targetMnGPerMol } = getStep1Factors(currentRatio);
 
       const molSty = styG / MW.STYRENE;
       const molPadtc = molSty / styRatio;
@@ -1232,6 +1321,13 @@
       const mlSty = styG / DENSITY.STYRENE;
       const mlDioxane = gDioxane / DENSITY.DIOXANE;
 
+      const styRatioDisp = Number.isInteger( Number(styRatio.toFixed(2)) ) ? styRatio.toFixed(0) : styRatio.toFixed(1);
+      const manRatioDisp = Number.isInteger( Number(manRatio.toFixed(2)) ) ? manRatio.toFixed(0) : manRatio.toFixed(1);
+      const ratioText = styRatioDisp + ' : ' + manRatioDisp + ' : 1';
+
+      document.getElementById('s1RatioLabel').textContent = 'SMA ' + currentRatio + ' (' + styRatioDisp + ':' + manRatioDisp + ' • Target Mn = ' + currentTargetMnKda.toFixed(2) + ' kDa)';
+      document.getElementById('s1FeedRatioBadge').textContent = ratioText;
+
       document.getElementById('cardStyreneG').textContent = styG.toFixed(4) + ' g';
       document.getElementById('cardStyreneML').textContent = '~' + mlSty.toFixed(2) + ' mL';
       document.getElementById('cardManG').textContent = gMan.toFixed(4) + ' g';
@@ -1245,9 +1341,10 @@
 
       document.getElementById('btnUseStep1Val').textContent = yieldG.toFixed(4) + ' g';
 
-      const theoMn = currentRatio === '3:1' ? '11,290 g/mol' : '8,344 g/mol';
-      document.getElementById('s1TheoMn').textContent = theoMn;
-      document.getElementById('t1RatioSty').textContent = styRatio;
+      document.getElementById('s1TheoMn').textContent = currentTargetMnKda.toFixed(2) + ' kDa (' + Math.round(targetMnGPerMol).toLocaleString() + ' g/mol)';
+      document.getElementById('s1ActiveMn').textContent = currentTargetMnKda.toFixed(2) + ' kDa (' + currentPolymerMn.toLocaleString() + ' g/mol)';
+      document.getElementById('t1RatioSty').textContent = styRatioDisp;
+      document.getElementById('t1RatioMan').textContent = manRatioDisp;
       document.getElementById('t1MolPadtc').textContent = molPadtc.toExponential(4);
       document.getElementById('t1MassPadtc').textContent = gPadtc.toFixed(4) + ' g';
       document.getElementById('t1MolSty').textContent = molSty.toFixed(6);
@@ -1259,25 +1356,14 @@
       document.getElementById('t1MassDiox').textContent = gDioxane.toFixed(4) + ' g';
       document.getElementById('t1MassYield').textContent = yieldG.toFixed(4) + ' g';
 
+      document.getElementById('proc1TargetMnKda').textContent = currentTargetMnKda.toFixed(2) + ' kDa (' + Math.round(targetMnGPerMol).toLocaleString() + ' g/mol)';
+      document.getElementById('proc1RatioText').textContent = ratioText;
       document.getElementById('proc1Sty').textContent = styG.toFixed(4) + ' g (~' + mlSty.toFixed(2) + ' mL)';
       document.getElementById('proc1Man').textContent = gMan.toFixed(4) + ' g';
       document.getElementById('proc1Padtc').textContent = gPadtc.toFixed(4) + ' g (' + (gPadtc * 1000).toFixed(1) + ' mg)';
       document.getElementById('proc1Diox').textContent = gDioxane.toFixed(4) + ' g (~' + mlDioxane.toFixed(2) + ' mL)';
       document.getElementById('proc1Ahcn').textContent = gAhcn.toFixed(4) + ' g (' + (gAhcn * 1000).toFixed(1) + ' mg)';
       document.getElementById('proc1Yield').textContent = yieldG.toFixed(4) + ' g';
-    }
-
-    function onPolymerMnChange(val) {
-      const mn = parseFloat(val);
-      if (isNaN(mn) || mn <= 0) return;
-      currentPolymerMn = mn;
-      document.getElementById('inputPolymerMn2').value = mn;
-      document.getElementById('inputPolymerMn3').value = mn;
-      document.getElementById('s1ActiveMn').textContent = mn.toLocaleString() + ' g/mol';
-      updateStep2();
-      updateStep3();
-      const s4G = parseFloat(document.getElementById('inputStep4PolymerG').value) || 0.0075;
-      onStep4PolymerInput(s4G);
     }
 
     function updateStep2() {
@@ -1291,7 +1377,7 @@
       const mlDiox = gDiox / DENSITY.DIOXANE;
 
       document.getElementById('cardS2PolyG').textContent = polyG.toFixed(4) + ' g';
-      document.getElementById('cardS2PolyMnNote').innerHTML = '<i>M</i><sub>n</sub> = ' + currentPolymerMn.toLocaleString() + ' g/mol';
+      document.getElementById('cardS2PolyMnNote').innerHTML = '<i>M</i><sub>n</sub> = ' + currentTargetMnKda.toFixed(2) + ' kDa (' + currentPolymerMn.toLocaleString() + ' g/mol)';
       document.getElementById('cardS2BpoG').textContent = gBpo.toFixed(4) + ' g';
       document.getElementById('cardS2BpoMG').textContent = (gBpo * 1000).toFixed(1) + ' mg';
       document.getElementById('cardS2DioxG').textContent = gDiox.toFixed(4) + ' g';
@@ -1299,7 +1385,7 @@
 
       document.getElementById('btnUseStep2Val').textContent = polyG.toFixed(4) + ' g';
 
-      document.getElementById('t2HeaderMn').textContent = currentPolymerMn.toLocaleString();
+      document.getElementById('t2HeaderMn').textContent = currentTargetMnKda.toFixed(2) + ' kDa / ' + currentPolymerMn.toLocaleString();
       document.getElementById('t2MmPoly').textContent = currentPolymerMn;
       document.getElementById('t2MolPoly').textContent = molPoly.toExponential(4);
       document.getElementById('t2MassPoly').textContent = polyG.toFixed(4) + ' g';
@@ -1326,20 +1412,26 @@
       const polyG = parseFloat(document.getElementById('inputStep3Polymer').value);
       if (isNaN(polyG) || polyG <= 0) return;
 
+      const { manRatio } = getStep1Factors(currentRatio);
+      const manUnitsStr = Number.isInteger(Number(manRatio.toFixed(2))) ? manRatio.toFixed(0) : manRatio.toFixed(1);
+
       const molPoly = polyG / currentPolymerMn;
-      const molAnh = molPoly * 25;
+      const molAnh = molPoly * manRatio;
       const molNaoh = molAnh * 4;
       const gNaoh = molNaoh * MW.NAOH;
       const mlNaoh4M = (molNaoh * 1000) / 4.0;
       const mlWater = (polyG / 0.3) * 5.0;
 
       document.getElementById('cardS3PolyG').textContent = polyG.toFixed(4) + ' g';
-      document.getElementById('cardS3PolyMnNote').innerHTML = '<i>M</i><sub>n</sub> = ' + currentPolymerMn.toLocaleString() + ' g/mol';
+      document.getElementById('cardS3PolyMnNote').innerHTML = '<i>M</i><sub>n</sub> = ' + currentTargetMnKda.toFixed(2) + ' kDa (' + currentPolymerMn.toLocaleString() + ' g/mol)';
       document.getElementById('cardS3NaohML').textContent = mlNaoh4M.toFixed(2) + ' mL';
       document.getElementById('cardS3NaohG').textContent = '(= ' + gNaoh.toFixed(4) + ' g NaOH)';
       document.getElementById('cardS3WaterML').textContent = mlWater.toFixed(2) + ' mL';
 
-      document.getElementById('t3HeaderMn').textContent = currentPolymerMn.toLocaleString();
+      document.getElementById('s3ManUnitsNote').textContent = manUnitsStr;
+      document.getElementById('t3HeaderMn').textContent = currentTargetMnKda.toFixed(2) + ' kDa / ' + currentPolymerMn.toLocaleString();
+      document.getElementById('t3HeaderManUnits').textContent = manUnitsStr;
+      document.getElementById('t3ColManUnits').textContent = manUnitsStr;
       document.getElementById('t3MmPoly').textContent = currentPolymerMn;
       document.getElementById('t3MassPoly').textContent = polyG.toFixed(4) + ' g';
       document.getElementById('t3MolPoly').textContent = molPoly.toExponential(4);
