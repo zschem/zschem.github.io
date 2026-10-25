@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SMA 2:1 &amp; 3:1 Synthesis to Nanodiscs — Interactive Procedure | Shah Lab</title>
+  <meta name="description" content="Interactive step-by-step synthesis procedure and stoichiometry calculator for Styrene–Maleic Acid (SMA 2:1 and SMA 3:1) RAFT polymerization, end-group removal, hydrolysis, and POPC lipid nanodisc assembly.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      corePlugins: {
+        preflight: false,
+      }
+    }
+  </script>
+  <style>
+    :root {
+      --background: #f8f8f7;
+      --card: #ffffff;
+      --foreground: #111111;
+      --muted-foreground: #4a4a4a;
+      --border: #dedede;
+      --primary: #a51c30;
+      --primary-foreground: #ffffff;
+    }
+    .proc-wrapper h1, .proc-wrapper h2, .proc-wrapper h3, .proc-wrapper h4, .proc-wrapper p, .proc-wrapper ol, .proc-wrapper ul {
+      margin: 0;
+    }
+    .proc-card {
+      background: #ffffff;
+      border: 1px solid var(--color-border);
+      border-top: 4px solid var(--color-bg-accent);
+      border-radius: var(--roundness);
+      box-shadow: var(--shadows);
+      padding: 28px;
+      margin-bottom: 32px;
+    }
+    .proc-card.step-blue {
+      border-top-color: #216890;
+    }
+    .proc-card.step-crimson {
+      border-top-color: #a51c30;
+    }
+    .proc-card.step-emerald {
+      border-top-color: #166534;
+    }
+    .proc-card.step-slate {
+      border-top-color: #334155;
+    }
+    .pill-blue {
+      display: inline-block;
+      padding: 1px 8px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-weight: 700;
+      background: rgba(33, 104, 144, 0.12);
+      border: 1px solid rgba(33, 104, 144, 0.35);
+      color: #1d5c80;
+    }
+    .pill-amber {
+      display: inline-block;
+      padding: 1px 8px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-weight: 700;
+      background: rgba(165, 28, 48, 0.10);
+      border: 1px solid rgba(165, 28, 48, 0.32);
+      color: #a51c30;
+    }
+    .pill-emerald {
+      display: inline-block;
+      padding: 1px 8px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-weight: 700;
+      background: rgba(22, 101, 52, 0.10);
+      border: 1px solid rgba(22, 101, 52, 0.32);
+      color: #166534;
+    }
+    .pill-purple {
+      display: inline-block;
+      padding: 1px 8px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-weight: 700;
+      background: rgba(51, 65, 85, 0.10);
+      border: 1px solid rgba(51, 65, 85, 0.32);
+      color: #334155;
+    }
+    .proc-wrapper button, .proc-wrapper input {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    .proc-wrapper input[type="number"] {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+    .proc-wrapper table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    @media print {
+      #branding_header, #wrapper-navbar-main, #wrapper-footer, .no-print {
+        display: none !important;
+      }
+      .main-wrapper {
+        padding: 12px 0 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to content</a>
+
+  <!-- Top Institutional Branding Bar -->
+  <div id="branding_header">
+    <div class="branding-container container">
+      <div class="branding-left">
+        <a href="index.html">
+          <span class="branding-crest">M</span>
+          <span>MIAMI UNIVERSITY</span>
+        </a>
+        <span class="branding-divider">|</span>
+        <span class="branding-dept">Department of Chemistry &amp; Biochemistry</span>
+      </div>
+      <div class="branding-right">
+        <a href="https://scholar.google.com/citations?user=PmU0ZBcAAAAJ&hl=en&oi=ao" target="_blank" rel="noopener">Google Scholar</a>
+        <a href="https://www.linkedin.com/in/muhammad-zeeshan-shah-kazmi" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="assets/docs/Muhammad_Zeeshan_Shah_CV.pdf" target="_blank">Download CV (PDF)</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sticky Main Navigation Bar -->
+  <div id="wrapper-navbar-main">
+    <nav id="navbar-main" aria-label="Main Navigation">
+      <div class="navbar-container container">
+        <div class="navbar-brand-holder">
+          <a class="navbar-brand" href="index.html" rel="home">
+            <span>Shah Lab</span>
+            <span class="navbar-brand-badge">Polymer &amp; Lipid Biomaterials</span>
+          </a>
+          <span class="navbar-brand-subtext">Muhammad Zeeshan Shah, Ph.D. Candidate &bull; Biomaterials, Bioconjugation &amp; Nanodisc Engineering</span>
+        </div>
+
+        <div class="navbar-navs-container">
+          <ul class="navbar-primary-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="research.html">Research</a></li>
+            <li>
+              <a href="about.html">Team &amp; Bio</a>
+              <ul class="nav-dropdown-menu">
+                <li><a href="about.html">Muhammad Zeeshan Shah</a></li>
+                <li><a href="about.html#collaborators">Advisors &amp; Collaborators</a></li>
+                <li><a href="about.html#mentorship">Mentored Researchers (13)</a></li>
+                <li><a href="about.html#leadership">ACS Leadership &amp; Honors</a></li>
+              </ul>
+            </li>
+            <li><a href="publications.html#procedures" class="active">Publications</a></li>
+            <li><a href="skills.html">Skills &amp; Docs</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+
+          <ul class="navbar-button-nav-right">
+            <li>
+              <button type="button" class="nav-icon-btn" data-open-search aria-label="Toggle search interface">
+                <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                <span>Search</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="nav-icon-btn" data-open-drawer aria-label="Toggle extended navigation">
+                <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+                <span>Menu</span>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Page Header Banner Matching Website Theme -->
+  <header class="page-header-banner">
+    <div class="container">
+      <ol class="breadcrumbs">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="publications.html#procedures">Publications &amp; Procedures</a></li>
+        <li>SMA 2:1 &amp; 3:1 Interactive Synthesis Guide</li>
+      </ol>
+      <h1 class="page-title">SMA 2:1 &amp; SMA 3:1 Interactive Synthesis Guide</h1>
+      <p class="page-subtitle">
+        Complete Beginner-to-Expert Laboratory Workflow: Monomers &rarr; RAFT SMA Copolymer &rarr; End-Group Cleavage &rarr; Alkaline Hydrolysis &rarr; POPC Lipid Nanodiscs (SMALPs) &bull; <a href="publications.html#procedures" style="font-weight:700;">&larr; Back to All Procedures</a>
+      </p>
+    </div>
+  </header>
+
+  <div class="main-wrapper" id="content">
+    <main class="container proc-wrapper">
+
+      <!-- Overview & Controls Card -->
+      <div class="proc-card">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div>
+            <div class="flex flex-wrap items-center gap-2 mb-2">
+              <span class="thrust-tag">Protocol #1 &bull; Standard Operating Procedure</span>
+              <span style="background: rgba(33, 104, 144, 0.12); color: #216890; font-size: 0.78rem; font-weight: 700; padding: 4px 12px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.05em;">
+                Interactive Stoichiometry &amp; Bench Sheet
+              </span>
+            </div>
+            <p class="text-sm text-[var(--muted-foreground)] mt-1">
+              Choose your target copolymer ratio (<strong>SMA 3:1</strong> or <strong>SMA 2:1</strong>), enter how much polymer you need (or your starting styrene mass), adjust your polymer <i>M</i><sub>n</sub>, and follow the automatically adapted step-by-step procedure all the way to POPC nanodiscs on DLS.
+            </p>
+          </div>
+
+          <!-- Global Toggle for Mole Ratios & Print -->
+          <div class="flex flex-wrap items-center gap-2.5 self-start md:self-center no-print">
+            <button
+              id="toggleCalcBtn"
+              onclick="toggleAllCalculations()"
+              class="px-3.5 py-2 rounded text-xs font-bold border border-[var(--border)] bg-[#f8f8f7] hover:bg-[#a51c30] hover:text-white hover:border-[#a51c30] transition flex items-center gap-2 cursor-pointer"
+            >
+              <span id="calcToggleIcon">&#128202;</span>
+              <span id="calcToggleText">Show Mole Ratios &amp; Calculations</span>
+            </button>
+            <button
+              onclick="window.print()"
+              class="px-3.5 py-2 rounded text-xs font-bold border border-[#216890] bg-[#216890] text-white hover:bg-[#1d5c80] transition cursor-pointer"
+              title="Print Bench Sheet"
+            >
+              &#128424; Print Bench Sheet
+            </button>
+          </div>
+        </div>
+
+        <!-- 4-Step Visual Journey Bar -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 mt-5 pt-5 border-t border-[var(--border)]">
+          <a href="#step1-card" class="p-3.5 rounded border border-[#dedede] bg-[#f8f8f7] hover:border-[#216890] transition no-underline">
+            <div class="text-xs font-bold text-[#216890] uppercase">Step 1 &bull; ~24 hrs</div>
+            <div class="text-sm font-bold text-[#111111] mt-0.5">SMA Polymerization</div>
+            <div class="text-xs text-[#4a4a4a] mt-0.5">Styrene + MAN &rarr; Yellow RAFT Polymer</div>
+          </a>
+          <a href="#step2-card" class="p-3.5 rounded border border-[#dedede] bg-[#f8f8f7] hover:border-[#a51c30] transition no-underline">
+            <div class="text-xs font-bold text-[#a51c30] uppercase">Step 2 &bull; ~5 hrs</div>
+            <div class="text-sm font-bold text-[#111111] mt-0.5">End-Group Removal</div>
+            <div class="text-xs text-[#4a4a4a] mt-0.5">BPO Cleavage &rarr; White Powder</div>
+          </a>
+          <a href="#step3-card" class="p-3.5 rounded border border-[#dedede] bg-[#f8f8f7] hover:border-[#166534] transition no-underline">
+            <div class="text-xs font-bold text-[#166534] uppercase">Step 3 &bull; Overnight</div>
+            <div class="text-sm font-bold text-[#111111] mt-0.5">NaOH Hydrolysis</div>
+            <div class="text-xs text-[#4a4a4a] mt-0.5">Ring-Opening &rarr; Clear Water-Soluble SMA</div>
+          </a>
+          <a href="#step4-card" class="p-3.5 rounded border border-[#dedede] bg-[#f8f8f7] hover:border-[#334155] transition no-underline">
+            <div class="text-xs font-bold text-[#334155] uppercase">Step 4 &bull; Final</div>
+            <div class="text-sm font-bold text-[#111111] mt-0.5">Dialysis &amp; Nanodiscs</div>
+            <div class="text-xs text-[#4a4a4a] mt-0.5">100 mM POPC + 5% SMA &rarr; DLS</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- STEP 1: SMA SYNTHESIS                      -->
+      <!-- ========================================== -->
+      <section id="step1-card" class="proc-card step-blue space-y-5">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-[var(--border)] pb-4">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-[#216890] text-white font-bold text-sm flex items-center justify-center shrink-0">1</span>
+            <div>
+              <h2 class="text-lg font-extrabold text-[#111111]">Step 1: RAFT Synthesis of SMA Copolymer</h2>
+              <p class="text-xs text-[var(--muted-foreground)]">
+                Copolymerize Styrene and Maleic Anhydride (MAN) using PADTC (CTA) and AHCN (Initiator) at 90 &deg;C.
+              </p>
+            </div>
+          </div>
+
+          <!-- Ratio Selector: SMA 3:1 vs SMA 2:1 -->
+          <div class="flex items-center gap-2 bg-[#f8f8f7] p-1.5 rounded border border-[var(--border)] self-start">
+            <button
+              id="btnRatio31"
+              onclick="setSMARatio('3:1')"
+              class="px-3.5 py-1.5 rounded text-xs font-bold transition cursor-pointer bg-[#a51c30] text-white border-none"
+            >
+              SMA 3:1 (75 : 25)
+            </button>
+            <button
+              id="btnRatio21"
+              onclick="setSMARatio('2:1')"
+              class="px-3.5 py-1.5 rounded text-xs font-bold transition cursor-pointer bg-transparent text-[#4a4a4a] hover:text-[#111111] border-none"
+            >
+              SMA 2:1 (50 : 25)
+            </button>
+          </div>
+        </div>
+
+        <!-- Interactive Inputs for Step 1 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-[#f8f8f7] p-4 rounded border border-[var(--border)]">
+          <div class="space-y-1.5">
+            <div class="flex items-center justify-between">
+              <label for="inputTargetPolymer" class="text-xs font-bold uppercase tracking-wider text-[#216890]">
+                Option A: Total Polymer Needed (Practical Yield)
+              </label>
+              <span class="text-xs text-[var(--muted-foreground)]">~75% isolated yield</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <input
+                id="inputTargetPolymer"
+                type="number"
+                step="0.0001"
+                min="0.05"
+                oninput="onTargetPolymerInput(this.value)"
+                class="w-full bg-white border border-[#cccccc] focus:border-[#216890] rounded px-3 py-2 text-base font-mono font-bold focus:outline-none"
+              />
+              <span class="text-sm font-semibold text-[var(--muted-foreground)] shrink-0">grams</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-1.5 pt-1">
+              <span class="text-xs text-[var(--muted-foreground)]">Quick set:</span>
+              <button onclick="setTargetPolymerPreset(1)" class="px-2 py-0.5 text-xs rounded border border-[var(--border)] bg-white hover:border-[#216890] cursor-pointer">1.0000 g</button>
+              <button onclick="setTargetPolymerPreset(2)" class="px-2 py-0.5 text-xs rounded border border-[var(--border)] bg-white hover:border-[#216890] cursor-pointer">2.0000 g</button>
+              <button onclick="setTargetPolymerPreset(5)" class="px-2 py-0.5 text-xs rounded border border-[var(--border)] bg-white hover:border-[#216890] cursor-pointer">5.0000 g</button>
+              <button onclick="setTargetPolymerPreset(10)" class="px-2 py-0.5 text-xs rounded border border-[var(--border)] bg-white hover:border-[#216890] cursor-pointer">10.0000 g</button>
+              <button onclick="resetStep1Default()" class="px-2 py-0.5 text-xs rounded border border-[#216890]/40 bg-[#216890]/10 text-[#216890] font-semibold hover:bg-[#216890]/20 cursor-pointer">Lab Sheet Default</button>
+            </div>
+          </div>
+
+          <div class="space-y-1.5">
+            <div class="flex items-center justify-between">
+              <label for="inputStyreneGrams" class="text-xs font-bold uppercase tracking-wider text-[#216890]">
+                Option B: Starting Styrene Mass
+              </label>
+              <span class="text-xs text-[var(--muted-foreground)]">Auto-syncs with Polymer Needed</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <input
+                id="inputStyreneGrams"
+                type="number"
+                step="0.0001"
+                min="0.05"
+                oninput="onStyreneGramsInput(this.value)"
+                class="w-full bg-white border border-[#cccccc] focus:border-[#216890] rounded px-3 py-2 text-base font-mono font-bold focus:outline-none"
+              />
+              <span class="text-sm font-semibold text-[var(--muted-foreground)] shrink-0">grams</span>
+            </div>
+            <p class="text-xs text-[var(--muted-foreground)] pt-1">
+              Changing either value automatically scales all reagents and updates the procedure below.
+            </p>
+          </div>
+        </div>
+
+        <!-- What to Weigh Summary Cards -->
+        <div>
+          <div class="text-xs font-bold uppercase tracking-wider text-[var(--muted-foreground)] mb-2.5">
+            Amounts to Measure for Step 1 (<span id="s1RatioLabel">SMA 3:1</span>)
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2.5">
+            <div class="p-3 rounded bg-[#f8f8f7] border border-[var(--border)]">
+              <div class="text-xs text-[var(--muted-foreground)]">Monomer 1</div>
+              <div class="text-sm font-bold">Styrene</div>
+              <div id="cardStyreneG" class="text-base font-mono font-bold text-[#216890] mt-1">3.6608 g</div>
+              <div id="cardStyreneML" class="text-xs text-[var(--muted-foreground)]">~4.03 mL</div>
+            </div>
+            <div class="p-3 rounded bg-[#f8f8f7] border border-[var(--border)]">
+              <div class="text-xs text-[var(--muted-foreground)]">Monomer 2</div>
+              <div class="text-sm font-bold">Maleic Anhydride</div>
+              <div id="cardManG" class="text-base font-mono font-bold text-[#216890] mt-1">1.1489 g</div>
+              <div class="text-xs text-[var(--muted-foreground)]">Solid powder</div>
+            </div>
+            <div class="p-3 rounded bg-[#f8f8f7] border border-[var(--border)]">
+              <div class="text-xs text-[var(--muted-foreground)]">RAFT Agent (CTA)</div>
+              <div class="text-sm font-bold">PADTC</div>
+              <div id="cardPadtcG" class="text-base font-mono font-bold text-[#216890] mt-1">0.1643 g</div>
+              <div id="cardPadtcMG" class="text-xs text-[var(--muted-foreground)]">164.3 mg</div>
+            </div>
+            <div class="p-3 rounded bg-[#f8f8f7] border border-[var(--border)]">
+              <div class="text-xs text-[var(--muted-foreground)]">Initiator</div>
+              <div class="text-sm font-bold">AHCN</div>
+              <div id="cardAhcnG" class="text-base font-mono font-bold text-[#216890] mt-1">0.0229 g</div>
+              <div id="cardAhcnMG" class="text-xs text-[var(--muted-foreground)]">22.9 mg</div>
+            </div>
+            <div class="p-3 rounded bg-[#f8f8f7] border border-[var(--border)]">
+              <div class="text-xs text-[var(--muted-foreground)]">Solvent (1:1 w/w)</div>
+              <div class="text-sm font-bold">Dry 1,4-Dioxane</div>
+              <div id="cardDioxane1G" class="text-base font-mono font-bold text-[#216890] mt-1">4.9969 g</div>
+              <div id="cardDioxane1ML" class="text-xs text-[var(--muted-foreground)]">~4.84 mL</div>
+            </div>
+            <div class="p-3 rounded bg-[#216890]/10 border border-[#216890]/35">
+              <div class="text-xs text-[#216890] font-bold">Expected Yield</div>
+              <div class="text-sm font-bold">Yellow SMA</div>
+              <div id="cardYield1G" class="text-base font-mono font-bold text-[#216890] mt-1">3.7477 g</div>
+              <div class="text-xs text-[var(--muted-foreground)]">After 3&times; precip.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Collapsible Mole Ratios & Stoichiometry Table (Hidden by default) -->
+        <div id="calcTable1" class="hidden space-y-3 pt-2">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-[#216890]">
+              Step 1 Mole Ratios &amp; Stoichiometry Table
+            </span>
+            <span class="text-xs text-[var(--muted-foreground)]">
+              Theoretical <i>M</i><sub>n</sub>: <strong id="s1TheoMn" class="font-mono">11,290 g/mol</strong> &bull; Active Polymer <i>M</i><sub>n</sub>: <strong id="s1ActiveMn" class="font-mono">8,948 g/mol</strong>
+            </span>
+          </div>
+          <div class="overflow-x-auto rounded border border-[var(--border)]">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-[#f8f8f7] text-[var(--muted-foreground)] border-b border-[var(--border)]">
+                <tr>
+                  <th class="py-2.5 px-3">Role</th>
+                  <th class="py-2.5 px-3">Component</th>
+                  <th class="py-2.5 px-3 font-mono">Mole Ratio</th>
+                  <th class="py-2.5 px-3 font-mono">MW (g/mol)</th>
+                  <th class="py-2.5 px-3 font-mono">Moles (mol)</th>
+                  <th class="py-2.5 px-3 font-mono">Actual Mass (g)</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-[var(--border)] font-mono">
+                <tr>
+                  <td class="py-2 px-3 font-sans">CTA</td>
+                  <td class="py-2 px-3 font-sans font-semibold">PADTC</td>
+                  <td class="py-2 px-3">1</td>
+                  <td class="py-2 px-3">350.60</td>
+                  <td id="t1MolPadtc" class="py-2 px-3">0.000469</td>
+                  <td id="t1MassPadtc" class="py-2 px-3 font-bold text-[#216890]">0.1643 g</td>
+                </tr>
+                <tr>
+                  <td class="py-2 px-3 font-sans">Monomer 1</td>
+                  <td class="py-2 px-3 font-sans font-semibold">Styrene</td>
+                  <td id="t1RatioSty" class="py-2 px-3 font-bold">75</td>
+                  <td class="py-2 px-3">104.15</td>
+                  <td id="t1MolSty" class="py-2 px-3">0.035149</td>
+                  <td id="t1MassSty" class="py-2 px-3 font-bold text-[#216890]">3.6608 g</td>
+                </tr>
+                <tr>
+                  <td class="py-2 px-3 font-sans">Monomer 2</td>
+                  <td class="py-2 px-3 font-sans font-semibold">Maleic Anhydride (MAN)</td>
+                  <td class="py-2 px-3 font-bold">25</td>
+                  <td class="py-2 px-3">98.06</td>
+                  <td id="t1MolMan" class="py-2 px-3">0.011716</td>
+                  <td id="t1MassMan" class="py-2 px-3 font-bold text-[#216890]">1.1489 g</td>
+                </tr>
+                <tr>
+                  <td class="py-2 px-3 font-sans">Initiator</td>
+                  <td class="py-2 px-3 font-sans font-semibold">AHCN</td>
+                  <td class="py-2 px-3">0.2</td>
+                  <td class="py-2 px-3">244.34</td>
+                  <td id="t1MolAhcn" class="py-2 px-3">0.0000937</td>
+                  <td id="t1MassAhcn" class="py-2 px-3 font-bold text-[#216890]">0.0229 g</td>
+                </tr>
+                <tr>
+                  <td class="py-2 px-3 font-sans">Solvent</td>
+                  <td class="py-2 px-3 font-sans font-semibold">Dry 1,4-Dioxane (1:1 by mass)</td>
+                  <td class="py-2 px-3">&mdash;</td>
+                  <td class="py-2 px-3">&mdash;</td>
+                  <td class="py-2 px-3">&mdash;</td>
+                  <td id="t1MassDiox" class="py-2 px-3 font-bold text-[#216890]">4.9969 g</td>
+                </tr>
+                <tr class="bg-[#216890]/5">
+                  <td class="py-2 px-3 font-sans font-semibold" colspan="5">Practical Yield After Precipitation (~75% mass recovery)</td>
+                  <td id="t1MassYield" class="py-2 px-3 font-bold text-[#216890]">3.7477 g</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="text-xs text-[var(--muted-foreground)] bg-[#f8f8f7] p-3 rounded border border-[var(--border)]">
+            <strong>24h Conversion Reference:</strong> Maleic Anhydride conversion = <span class="font-mono">100%</span> (NMR integral 6.44 &rarr; 0) &bull; Styrene conversion = <span class="font-mono">88.38%</span> (NMR integral 6.83 &rarr; 0.7938).
+          </div>
+        </div>
+
+        <!-- Adapted Step-by-Step Procedure for Step 1 -->
+        <div class="bg-[#f8f8f7] border border-[var(--border)] rounded p-4 space-y-3">
+          <div class="text-xs font-bold uppercase tracking-wider text-[#216890]">
+            Adapted Step 1 Procedure
+          </div>
+          <ol class="space-y-2.5 text-sm leading-relaxed list-decimal list-inside">
+            <li>
+              <strong>Reagent Preparation:</strong> Combine <span id="proc1Sty" class="pill-blue">3.6608 g</span> of styrene, <span id="proc1Man" class="pill-blue">1.1489 g</span> of maleic anhydride (MAN), and <span id="proc1Padtc" class="pill-blue">0.1643 g (164.3 mg)</span> of the chain transfer agent PADTC in a vial. Dissolve the mixture completely in <span id="proc1Diox" class="pill-blue">4.9969 g (~4.84 mL)</span> of dry 1,4-dioxane, then add <span id="proc1Ahcn" class="pill-blue">0.0229 g (22.9 mg)</span> of the initiator (AHCN) and dissolve thoroughly.
+            </li>
+            <li>
+              <strong>Reaction Setup:</strong> Transfer the reaction solution into a round-bottom flask equipped with a magnetic stir bar. Collect and set aside a small aliquot (~50 &mu;L) of the unreacted solution as a baseline (<span class="font-mono">t = 0</span>) for <sup>1</sup>H NMR conversion tracking, then seal the flask with a rubber septum.
+            </li>
+            <li>
+              <strong>Degassing &amp; Polymerization:</strong> Purge the sealed flask by bubbling nitrogen gas (N<sub>2</sub>) through the solution for <strong>15 minutes</strong> to remove dissolved oxygen. Heat the reaction mixture at <strong>90 &deg;C</strong> with continuous stirring for <strong>24 hours</strong>.
+            </li>
+            <li>
+              <strong>Conversion Check:</strong> Analyze a small aliquot of the heated mixture via <sup>1</sup>H NMR against the initial baseline aliquot to confirm that monomer conversion reaches <strong>&ge;80%</strong> (typically ~100% MAN and ~88% styrene conversion) before stopping the reaction.
+            </li>
+            <li>
+              <strong>Purification &amp; Isolation:</strong> Allow to cool, redissolve/dilute the crude polymer in minimal tetrahydrofuran (THF), and precipitate into a large excess of cold hexanes. Repeat this THF/hexane precipitation process <strong>two more times (3 total precipitations)</strong> to thoroughly remove unreacted monomers and residual solvent. Dry under vacuum to isolate approximately <span id="proc1Yield" class="pill-blue">3.7477 g</span> of the target copolymer as a <strong>yellow powder</strong>.
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- STEP 2: END-GROUP REMOVAL                  -->
+      <!-- ========================================== -->
+      <section id="step2-card" class="proc-card step-crimson space-y-5">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-[var(--border)] pb-4">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-[#a51c30] text-white font-bold text-sm flex items-center justify-center shrink-0">2</span>
+            <div>
+              <h2 class="text-lg font-extrabold text-[#111111]">Step 2: RAFT End-Group Removal</h2>
+              <p class="text-xs text-[var(--muted-foreground)]">
+                Cleave the yellow trithiocarbonate (PADTC) end-group using Benzoyl Peroxide (BPO, 20 equiv.) at 82 &deg;C for 5 hours.
+              </p>
+            </div>
+          </div>
+          <button
+            onclick="useStep1YieldForStep2()"
+            class="px-3 py-1.5 rounded text-xs font-bold border border-[#a51c30]/40 bg-[#a51c30]/10 text-[#a51c30] hover:bg-[#a51c30] hover:text-white transition self-start md:self-center cursor-pointer"
+          >
+            &darr; Use Full Yield from Step 1 (<span id="btnUseStep1Val">3.7477 g</span>)
+          </button>
+        </div>
+
+        <!-- Interactive Inputs for Step 2 (Starting Polymer + Editable Polymer Mn) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-[#f8f8f7] p-4 rounded border border-[var(--border)]">
+          <div class="space-y-1.5">
+            <label for="inputStep2Polymer" class="text-xs font-bold uppercase tracking-wider text-[#a51c30]">
+              Starting Polymer Mass for End-Group Removal
+            </label>
+            <div class="flex items-center gap-2">
+              <input
+                id="inputStep2Polymer"
+                type="number"
+                step="0.0001"
+                min="0.05"
+                value="1.8198"
+                oninput="updateStep2()"
+                class="w-full bg-white border border-[#cccccc] focus:border-[#a51c30] rounded px-3 py-2 text-base font-mono font-bold focus:outline-none"
+              />
+              <span class="text-sm font-semibold text-[var(--muted-foreground)] shrink-0">grams</span>
+            </div>
+            <div class="flex flex-wrap gap-1.5 pt-1">
+              <button onclick="setStep2Preset(1.8198)" class="px-2 py-0.5 text-xs rounded border border-[#a51c30]/35 bg-[#a51c30]/10 text-[#a51c30] font-semibold cursor-pointer">Sheet Default (1.8198 g)</button>
+              <button onclick="setStep2Preset(1.0000)" class="px-2 py-0.5 text-xs rounded border border-[var(--border)] bg-white cursor-pointer">1.0000 g</button>
+              <button onclick="setStep2Preset(2.0000)" class="px-2 py-0.5 text-xs rounded border border-[var(--border)] bg-white cursor-pointer">2.0000 g</button>
+            </div>
+          </div>
+
+          <!-- Editable Polymer Mn (Shared with Step 3) -->
+          <div class="space-y-1.5">
+            <div class="flex items-center justify-between">
+              <label for="inputPolymerMn2" class="text-xs font-bold uppercase tracking-wider text-[#a51c30]">
+                Polymer <i>M</i><sub>n</sub> (Molecular Weight)
+              </label>
+              <span class="text-xs text-[var(--muted-foreground)]">Used in Step 2 &amp; Step 3</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <input
+                id="inputPolymerMn2"
+                type="number"
+                step="50"
+                min="500"
+                value="8948"
+                oninput="onPolymerMnChange(this.value)"
+                class="w-full bg-white border border-[#cccccc] focus:border-[#a51c30] rounded px-3 py-2 text-base font-mono font-bold focus:outline-none"
+              />
+              <span class="text-sm font-semibold text-[var(--muted-foreground)] shrink-0">g/mol</span>
+            </div>
+            <div class="flex flex-wrap gap-1.5 pt-1">
+              <button onclick="onPolymerMnChange(8948)" class="px-2 py-0.5 text-xs rounded border border-[#a51c30]/35 bg-[#a51c30]/10 text-[#a51c30] font-semibold cursor-pointer">GPC Default (8,948)</button>
+              <button onclick="onPolymerMnChange(8344)" class="px-2 py-0.5 text-xs rounded border border-[var(--border)] bg-white cursor-pointer">SMA 2:1 Theo (8,344)</button>
+              <button onclick="onPolymerMnChange(11290)" class="px-2 py-0.5 text-xs rounded border border-[var(--border)] bg-white cursor-pointer">SMA 3:1 Theo (11,290)</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2 Summary Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+          <div class="p-3 rounded bg-[#f8f8f7] border border-[var(--border)]">
+            <div class="text-xs text-[var(--muted-foreground)]">Starting Polymer</div>
+            <div class="text-sm font-bold">Yellow SMA</div>
+            <div id="cardS2PolyG" class="text-base font-mono font-bold text-[#a51c30] mt-1">1.8198 g</div>
+            <div id="cardS2PolyMnNote" class="text-xs text-[var(--muted-foreground)]"><i>M</i><sub>n</sub> = 8,948 g/mol</div>
+          </div>
+          <div class="p-3 rounded bg-[#f8f8f7] border border-[var(--border)]">
+            <div class="text-xs text-[var(--muted-foreground)]">Peroxide (20 eq)</div>
+            <div class="text-sm font-bold">BPO</div>
+            <div id="cardS2BpoG" class="text-base font-mono font-bold text-[#a51c30] mt-1">0.9843 g</div>
+            <div id="cardS2BpoMG" class="text-xs text-[var(--muted-foreground)]">984.3 mg</div>
+          </div>
+          <div class="p-3 rounded bg-[#f8f8f7] border border-[var(--border)]">
+            <div class="text-xs text-[var(--muted-foreground)]">Solvent (4&times; mass)</div>
+            <div class="text-sm font-bold">1,4-Dioxane</div>
+            <div id="cardS2DioxG" class="text-base font-mono font-bold text-[#a51c30] mt-1">11.2165 g</div>
+            <div id="cardS2DioxML" class="text-xs text-[var(--muted-foreground)]">~10.86 mL</div>
+          </div>
+        </div>
+
+        <!-- Collapsible Mole Ratios Table for Step 2 -->
+        <div id="calcTable2" class="hidden space-y-2 pt-1">
+          <div class="text-xs font-bold uppercase tracking-wider text-[#a51c30]">
+            Step 2 Mole Ratios &amp; Stoichiometry Table (Based on Polymer <i>M</i><sub>n</sub> = <span id="t2HeaderMn">8,948</span> g/mol)
+          </div>
+          <div class="overflow-x-auto rounded border border-[var(--border)]">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-[#f8f8f7] text-[var(--muted-foreground)] border-b border-[var(--border)]">
+                <tr>
+                  <th class="py-2 px-3">Component</th>
+                  <th class="py-2 px-3 font-mono">Mol Ratio</th>
+                  <th class="py-2 px-3 font-mono">MM (g/mol)</th>
+                  <th class="py-2 px-3 font-mono">Moles (mol)</th>
+                  <th class="py-2 px-3 font-mono">Mass (g)</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-[var(--border)] font-mono">
+                <tr>
+                  <td class="py-2 px-3 font-sans font-semibold">SMA Polymer</td>
+                  <td class="py-2 px-3">1</td>
+                  <td id="t2MmPoly" class="py-2 px-3">8948</td>
+                  <td id="t2MolPoly" class="py-2 px-3">0.0002034</td>
+                  <td id="t2MassPoly" class="py-2 px-3 font-bold text-[#a51c30]">1.8198 g</td>
+                </tr>
+                <tr>
+                  <td class="py-2 px-3 font-sans font-semibold">Benzoyl Peroxide (BPO)</td>
+                  <td class="py-2 px-3">20</td>
+                  <td class="py-2 px-3">242</td>
+                  <td id="t2MolBpo" class="py-2 px-3">0.004068</td>
+                  <td id="t2MassBpo" class="py-2 px-3 font-bold text-[#a51c30]">0.9843 g</td>
+                </tr>
+                <tr>
+                  <td class="py-2 px-3 font-sans font-semibold">1,4-Dioxane (4&times; total solid mass)</td>
+                  <td class="py-2 px-3">&mdash;</td>
+                  <td class="py-2 px-3">&mdash;</td>
+                  <td class="py-2 px-3">&mdash;</td>
+                  <td id="t2MassDiox" class="py-2 px-3 font-bold text-[#a51c30]">11.2165 g</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Adapted Step-by-Step Procedure for Step 2 -->
+        <div class="bg-[#f8f8f7] border border-[var(--border)] rounded p-4 space-y-3">
+          <div class="text-xs font-bold uppercase tracking-wider text-[#a51c30]">
+            Adapted Step 2 Procedure
+          </div>
+          <ol class="space-y-2.5 text-sm leading-relaxed list-decimal list-inside">
+            <li>
+              <strong>Reaction Mixture Preparation:</strong> Dissolve <span id="proc2Poly" class="pill-amber">1.8198 g</span> of the yellow SMA copolymer in <span id="proc2Diox" class="pill-amber">11.2165 g (~10.86 mL)</span> of 1,4-dioxane in a round-bottom flask. Add <span id="proc2Bpo" class="pill-amber">0.9843 g (984.3 mg)</span> of benzoyl peroxide (BPO) and mix until fully homogeneous.
+            </li>
+            <li>
+              <strong>Degassing Setup:</strong> Seal the round-bottom flask securely with a rubber stopper. Deoxygenate the mixture by bubbling nitrogen gas (N<sub>2</sub>) through the solution for <strong>15 minutes</strong>. Leave a vent/escape needle inserted through the stopper to prevent pressure buildup.
+            </li>
+            <li>
+              <strong>Thermolysis / End-Group Cleavage:</strong> Heat the reaction flask at <strong>82 &deg;C</strong> with continuous stirring for <strong>5 hours</strong> to thermally decompose BPO and cleave the yellow thiocarbonylthio (PADTC) RAFT end-groups.
+            </li>
+            <li>
+              <strong>Purification &amp; Isolation:</strong> Allow the reaction to cool to room temperature, then dilute/redissolve the polymer residue in minimal THF. Precipitate the solution into a large excess of cold hexanes to remove unreacted peroxide, benzoic acid byproducts, and cleaved fragments. Repeat the THF/hexane precipitation <strong>once more (2 total precipitations)</strong>. Collect and dry the product to obtain a <strong>white to off-white powder</strong> (confirming removal of the yellow trithiocarbonate group).
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- STEP 3: HYDROLYSIS                         -->
+      <!-- ========================================== -->
+      <section id="step3-card" class="proc-card step-emerald space-y-5">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-[var(--border)] pb-4">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-[#166534] text-white font-bold text-sm flex items-center justify-center shrink-0">3</span>
+            <div>
+              <h2 class="text-lg font-extrabold text-[#111111]">Step 3: Alkaline Hydrolysis (Ring-Opening to Active SMA)</h2>
+              <p class="text-xs text-[var(--muted-foreground)]">
+                Open the maleic anhydride rings with 4M NaOH (4 equiv. per anhydride unit) at 55 &deg;C overnight to make water-soluble amphiphilic SMA.
+              </p>
+            </div>
+          </div>
+          <button
+            onclick="useStep2MassForStep3()"
+            class="px-3 py-1.5 rounded text-xs font-bold border border-[#166534]/40 bg-[#166534]/10 text-[#166534] hover:bg-[#166534] hover:text-white transition self-start md:self-center cursor-pointer"
+          >
+            &darr; Use Step 2 Polymer Mass (<span id="btnUseStep2Val">1.8198 g</span>)
+          </button>
+        </div>
+
+        <!-- Interactive Inputs for Step 3 (Polymer Mass + Synced Polymer Mn) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-[#f8f8f7] p-4 rounded border border-[var(--border)]">
+          <div class="space-y-1.5">
+            <label for="inputStep3Polymer" class="text-xs font-bold uppercase tracking-wider text-[#166534]">
+              Polymer Mass Taken for Hydrolysis
+            </label>
+            <div class="flex items-center gap-2">
+              <input
+                id="inputStep3Polymer"
+                type="number"
+                step="0.0001"
+                min="0.05"
+                value="0.3000"
+                oninput="updateStep3()"
+                class="w-full bg-white border border-[#cccccc] focus:border-[#166534] rounded px-3 py-2 text-base font-mono font-bold focus:outline-none"
+              />
+              <span class="text-sm font-semibold text-[var(--muted-foreground)] shrink-0">grams</span>
+            </div>
+            <div class="flex flex-wrap gap-1.5 pt-1">
+              <button onclick="setStep3Preset(0.3)" class="px-2 py-0.5 text-xs rounded border border-[#166534]/35 bg-[#166534]/10 text-[#166534] font-semibold cursor-pointer">Sheet Default (0.3000 g)</button>
+              <button onclick="setStep3Preset(0.5)" class="px-2 py-0.5 text-xs rounded border border-[var(--border)] bg-white cursor-pointer">0.5000 g</button>
+              <button onclick="setStep3Preset(1.0)" class="px-2 py-0.5 text-xs rounded border border-[var(--border)] bg-white cursor-pointer">1.0000 g</button>
+            </div>
+          </div>
+
+          <div class="space-y-1.5">
+            <div class="flex items-center justify-between">
+              <label for="inputPolymerMn3" class="text-xs font-bold uppercase tracking-wider text-[#166534]">
+                Polymer <i>M</i><sub>n</sub> (Molecular Weight)
+              </label>
+              <span class="text-xs text-[var(--muted-foreground)]">Synced with Step 2</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <input
+                id="inputPolymerMn3"
+                type="number"
+                step="50"
+                min="500"
+                value="8948"
+                oninput="onPolymerMnChange(this.value)"
+                class="w-full bg-white border border-[#cccccc] focus:border-[#166534] rounded px-3 py-2 text-base font-mono font-bold focus:outline-none"
+              />
+              <span class="text-sm font-semibold text-[var(--muted-foreground)] shrink-0">g/mol</span>
+            </div>
+            <p class="text-xs text-[var(--muted-foreground)] pt-1">
+              Determines moles of polymer and moles of maleic anhydride units (&times;25) for NaOH calculation.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 3 Summary Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+          <div class="p-3 rounded bg-[#f8f8f7] border border-[var(--border)]">
+            <div class="text-xs text-[var(--muted-foreground)]">Purified Polymer</div>
+            <div class="text-sm font-bold">White SMA</div>
+            <div id="cardS3PolyG" class="text-base font-mono font-bold text-[#166534] mt-1">0.3000 g</div>
+            <div id="cardS3PolyMnNote" class="text-xs text-[var(--muted-foreground)]"><i>M</i><sub>n</sub> = 8,948 g/mol</div>
+          </div>
+          <div class="p-3 rounded bg-[#f8f8f7] border border-[var(--border)]">
+            <div class="text-xs text-[var(--muted-foreground)]">4M NaOH Stock</div>
+            <div class="text-sm font-bold">4M NaOH Vol.</div>
+            <div id="cardS3NaohML" class="text-base font-mono font-bold text-[#166534] mt-1">0.84 mL</div>
+            <div id="cardS3NaohG" class="text-xs text-[var(--muted-foreground)]">(= 0.1341 g NaOH)</div>
+          </div>
+          <div class="p-3 rounded bg-[#f8f8f7] border border-[var(--border)]">
+            <div class="text-xs text-[var(--muted-foreground)]">DI Water</div>
+            <div class="text-sm font-bold">Water Added</div>
+            <div id="cardS3WaterML" class="text-base font-mono font-bold text-[#166534] mt-1">5.00 mL</div>
+            <div class="text-xs text-[var(--muted-foreground)]">Reaction medium</div>
+          </div>
+        </div>
+
+        <!-- Collapsible Mole Ratios Table for Step 3 -->
+        <div id="calcTable3" class="hidden space-y-2 pt-1">
+          <div class="text-xs font-bold uppercase tracking-wider text-[#166534]">
+            Step 3 Hydrolysis Stoichiometry Table (<i>M</i><sub>n</sub> = <span id="t3HeaderMn">8,948</span> g/mol &bull; 25 Anhydride Units/Chain &bull; 4&times; Excess NaOH)
+          </div>
+          <div class="overflow-x-auto rounded border border-[var(--border)]">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-[#f8f8f7] text-[var(--muted-foreground)] border-b border-[var(--border)]">
+                <tr>
+                  <th class="py-2 px-3">Polymer (g)</th>
+                  <th class="py-2 px-3 font-mono"><i>M</i><sub>n</sub> (g/mol)</th>
+                  <th class="py-2 px-3 font-mono">Moles Polymer</th>
+                  <th class="py-2 px-3 font-mono">Moles Anhydride (&times;25)</th>
+                  <th class="py-2 px-3 font-mono">NaOH Excess</th>
+                  <th class="py-2 px-3 font-mono">Moles NaOH</th>
+                  <th class="py-2 px-3 font-mono">Mass NaOH (g)</th>
+                  <th class="py-2 px-3 font-mono">4M NaOH Solution</th>
+                </tr>
+              </thead>
+              <tbody class="font-mono">
+                <tr>
+                  <td id="t3MassPoly" class="py-2.5 px-3 font-bold text-[#166534]">0.3000 g</td>
+                  <td id="t3MmPoly" class="py-2.5 px-3">8948</td>
+                  <td id="t3MolPoly" class="py-2.5 px-3">3.353e-5</td>
+                  <td id="t3MolAnh" class="py-2.5 px-3">0.0008382</td>
+                  <td class="py-2.5 px-3">4 equiv.</td>
+                  <td id="t3MolNaoh" class="py-2.5 px-3">0.003353</td>
+                  <td id="t3MassNaoh" class="py-2.5 px-3">0.1341 g</td>
+                  <td id="t3VolNaoh" class="py-2.5 px-3 font-bold text-[#166534]">0.838 mL</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Adapted Step-by-Step Procedure for Step 3 -->
+        <div class="bg-[#f8f8f7] border border-[var(--border)] rounded p-4 space-y-3">
+          <div class="text-xs font-bold uppercase tracking-wider text-[#166534]">
+            Adapted Step 3 Procedure
+          </div>
+          <ol class="space-y-2.5 text-sm leading-relaxed list-decimal list-inside">
+            <li>
+              <strong>Dissolution:</strong> Dissolve <span id="proc3Poly" class="pill-emerald">0.3000 g</span> of the purified white SMA polymer in a minimal amount of THF (~1&ndash;2 mL) in a reaction vial or flask.
+            </li>
+            <li>
+              <strong>Alkaline Addition:</strong> Add <span id="proc3Water" class="pill-emerald">5.00 mL</span> of deionized water together with <span id="proc3NaohML" class="pill-emerald">0.84 mL (838 &mu;L)</span> of <strong>4 M NaOH solution</strong> (equivalent to <span id="proc3NaohG" class="pill-emerald">0.1341 g</span> solid NaOH). The polymer will initially form a cloudy suspension.
+            </li>
+            <li>
+              <strong>Heating &amp; Ring-Opening:</strong> Heat the reaction mixture at <strong>55 &deg;C</strong> with vigorous stirring <strong>overnight</strong> until the cloudy polymer suspension clarifies into a <strong>transparent, homogeneous solution</strong>.
+            </li>
+            <li>
+              <strong>Clarification Check:</strong> If the mixture is not yet completely clear after overnight heating, add a few more milliliters of deionized water and continue stirring at 55 &deg;C for an additional <strong>5 hours</strong> until fully transparent.
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- STEP 4: DIALYSIS, LYOPHILIZATION & NANODISCS -->
+      <!-- ========================================== -->
+      <section id="step4-card" class="proc-card step-slate space-y-5">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-[var(--border)] pb-4">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-[#334155] text-white font-bold text-sm flex items-center justify-center shrink-0">4</span>
+            <div>
+              <h2 class="text-lg font-extrabold text-[#111111]">Step 4: Dialysis, Lyophilization &amp; Nanodisc Formation (from Solid POPC)</h2>
+              <p class="text-xs text-[var(--muted-foreground)]">
+                Prepare <strong>100 mM POPC</strong> from solid lipid and <strong>5% (w/v) SMA solution</strong> in buffer based on the grams of polymer used, then mix at <strong>1 : 1.5 (v/v)</strong>.
+              </p>
+            </div>
+          </div>
+          <button
+            onclick="useStep3MassForStep4()"
+            class="px-3 py-1.5 rounded text-xs font-bold border border-[#334155]/40 bg-[#334155]/10 text-[#334155] hover:bg-[#334155] hover:text-white transition self-start md:self-center cursor-pointer"
+          >
+            &darr; Use Step 3 Polymer Mass (<span id="btnUseStep3Val">0.3000 g</span>)
+          </button>
+        </div>
+
+        <!-- Interactive Step 4 Inputs: Polymer Grams (Option A) & 100 mM POPC Volume (Option B) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-[#f8f8f7] p-4 rounded border border-[var(--border)]">
+          <!-- Option A: Grams of Polymer Used -->
+          <div class="space-y-1.5">
+            <div class="flex items-center justify-between">
+              <label for="inputStep4PolymerG" class="text-xs font-bold uppercase tracking-wider text-[#334155]">
+                Option A: Polymer Mass Used (for 5% w/v SMA)
+              </label>
+              <span class="text-xs text-[var(--muted-foreground)]">5% w/v = 0.0500 g/mL</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <input
+                id="inputStep4PolymerG"
+                type="number"
+                step="0.0001"
+                min="0.0005"
+                value="0.0075"
+                oninput="onStep4PolymerInput(this.value)"
+                class="w-full bg-white border border-[#cccccc] focus:border-[#334155] rounded px-3 py-2 text-base font-mono font-bold focus:outline-none"
+              />
+              <span class="text-sm font-semibold text-[var(--muted-foreground)] shrink-0">grams</span>
+            </div>
+            <div class="flex flex-wrap gap-1.5 pt-1">
+              <span class="text-xs text-[var(--muted-foreground)]">Quick set:</span>
+              <button onclick="setStep4PolymerPreset(0.0075)" class="px-2 py-0.5 text-xs rounded border border-[#334155]/35 bg-[#334155]/10 text-[#334155] font-semibold cursor-pointer">0.0075 g</button>
+              <button onclick="setStep4PolymerPreset(0.0150)" class="px-2 py-0.5 text-xs rounded border border-[var(--border)] bg-white cursor-pointer">0.0150 g</button>
+              <button onclick="setStep4PolymerPreset(0.0500)" class="px-2 py-0.5 text-xs rounded border border-[var(--border)] bg-white cursor-pointer">0.0500 g</button>
+              <button onclick="setStep4PolymerPreset(0.1000)" class="px-2 py-0.5 text-xs rounded border border-[var(--border)] bg-white cursor-pointer">0.1000 g</button>
+            </div>
+          </div>
+
+          <!-- Option B: 100 mM POPC Volume Needed -->
+          <div class="space-y-1.5">
+            <div class="flex items-center justify-between">
+              <label for="inputStep4PopcVol" class="text-xs font-bold uppercase tracking-wider text-[#334155]">
+                Option B: Volume of 100 mM POPC Stock
+              </label>
+              <span class="text-xs text-[var(--muted-foreground)]">Auto-syncs at 1 : 1.5 (v/v)</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <input
+                id="inputStep4PopcVol"
+                type="number"
+                step="10"
+                min="5"
+                value="100"
+                oninput="onStep4PopcVolInput(this.value)"
+                class="w-full bg-white border border-[#cccccc] focus:border-[#334155] rounded px-3 py-2 text-base font-mono font-bold focus:outline-none"
+              />
+              <span class="text-sm font-semibold text-[var(--muted-foreground)] shrink-0">&mu;L</span>
+            </div>
+            <div class="flex flex-wrap gap-1.5 pt-1">
+              <span class="text-xs text-[var(--muted-foreground)]">Quick set:</span>
+              <button onclick="setStep4PopcVolPreset(50)" class="px-2 py-0.5 text-xs rounded border border-[var(--border)] bg-white cursor-pointer">50 &mu;L</button>
+              <button onclick="setStep4PopcVolPreset(100)" class="px-2 py-0.5 text-xs rounded border border-[#334155]/35 bg-[#334155]/10 text-[#334155] font-semibold cursor-pointer">100 &mu;L</button>
+              <button onclick="setStep4PopcVolPreset(200)" class="px-2 py-0.5 text-xs rounded border border-[var(--border)] bg-white cursor-pointer">200 &mu;L</button>
+              <button onclick="setStep4PopcVolPreset(500)" class="px-2 py-0.5 text-xs rounded border border-[var(--border)] bg-white cursor-pointer">500 &mu;L</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4 Summary Cards: Solid POPC + Buffers + 5% SMA -->
+        <div>
+          <div class="text-xs font-bold uppercase tracking-wider text-[var(--muted-foreground)] mb-2.5">
+            Amounts of Solid POPC, Polymer &amp; Buffer Required (1 : 1.5 Lipid : Polymer v/v)
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2.5">
+            <div class="p-3 rounded bg-[#f8f8f7] border border-[var(--border)]">
+              <div class="text-xs text-[var(--muted-foreground)]">Solid Lipid (MW 760.08)</div>
+              <div class="text-sm font-bold">Solid POPC</div>
+              <div id="cardS4PopcG" class="text-base font-mono font-bold text-[#334155] mt-1">0.0076 g</div>
+              <div id="cardS4PopcMG" class="text-xs text-[var(--muted-foreground)]">7.60 mg</div>
+            </div>
+            <div class="p-3 rounded bg-[#f8f8f7] border border-[var(--border)]">
+              <div class="text-xs text-[var(--muted-foreground)]">Buffer for 100 mM POPC</div>
+              <div class="text-sm font-bold">POPC Buffer (1 part)</div>
+              <div id="cardS4PopcVol" class="text-base font-mono font-bold text-[#334155] mt-1">100 &mu;L</div>
+              <div id="cardS4PopcML" class="text-xs text-[var(--muted-foreground)]">0.100 mL</div>
+            </div>
+            <div class="p-3 rounded bg-[#f8f8f7] border border-[var(--border)]">
+              <div class="text-xs text-[var(--muted-foreground)]">Lyophilized Polymer</div>
+              <div class="text-sm font-bold">SMA Polymer</div>
+              <div id="cardS4SmaG" class="text-base font-mono font-bold text-[#334155] mt-1">0.0075 g</div>
+              <div id="cardS4SmaMG" class="text-xs text-[var(--muted-foreground)]">7.50 mg</div>
+            </div>
+            <div class="p-3 rounded bg-[#f8f8f7] border border-[var(--border)]">
+              <div class="text-xs text-[var(--muted-foreground)]">Buffer for 5% (w/v) SMA</div>
+              <div class="text-sm font-bold">SMA Buffer (1.5 parts)</div>
+              <div id="cardS4SmaVolVV" class="text-base font-mono font-bold text-[#334155] mt-1">150 &mu;L</div>
+              <div id="cardS4SmaML" class="text-xs text-[var(--muted-foreground)]">0.150 mL</div>
+            </div>
+            <div class="p-3 rounded bg-[#f8f8f7] border border-[var(--border)]">
+              <div class="text-xs text-[var(--muted-foreground)]">Total Buffer Needed</div>
+              <div class="text-sm font-bold">Combined Buffer</div>
+              <div id="cardS4TotalBuf" class="text-base font-mono font-bold text-[#334155] mt-1">250 &mu;L</div>
+              <div id="cardS4TotalBufML" class="text-xs text-[var(--muted-foreground)]">0.250 mL total</div>
+            </div>
+            <div class="p-3 rounded bg-[#a51c30]/10 border border-[#a51c30]/35">
+              <div class="text-xs text-[#a51c30] font-bold">1 : 1.5 (v/v) Mix</div>
+              <div class="text-sm font-bold">Nanodisc Sample</div>
+              <div id="cardS4TotalVol" class="text-base font-mono font-bold text-[#a51c30] mt-1">250 &mu;L</div>
+              <div class="text-xs text-[var(--muted-foreground)]">Ready for 3&times; freeze&ndash;thaw</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Collapsible Step 4 Stock & Molarity Calculation Table -->
+        <div id="calcTable4" class="hidden space-y-2 pt-1">
+          <div class="text-xs font-bold uppercase tracking-wider text-[#334155]">
+            Step 4 Stock Preparation &amp; 1 : 1.5 (v/v) Mixing Table (POPC MW = 760.08 g/mol)
+          </div>
+          <div class="overflow-x-auto rounded border border-[var(--border)]">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-[#f8f8f7] text-[var(--muted-foreground)] border-b border-[var(--border)]">
+                <tr>
+                  <th class="py-2 px-3">Stock Solution</th>
+                  <th class="py-2 px-3 font-mono">Target Conc.</th>
+                  <th class="py-2 px-3 font-mono">MW (g/mol)</th>
+                  <th class="py-2 px-3 font-mono">Moles</th>
+                  <th class="py-2 px-3 font-mono">Solid Mass (g)</th>
+                  <th class="py-2 px-3 font-mono">Buffer Volume</th>
+                  <th class="py-2 px-3 font-mono">v/v Ratio</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-[var(--border)] font-mono">
+                <tr>
+                  <td class="py-2 px-3 font-sans font-semibold">100 mM POPC in Buffer</td>
+                  <td class="py-2 px-3">100 mM (0.0760 g/mL)</td>
+                  <td class="py-2 px-3">760.08</td>
+                  <td id="t4MolPopc" class="py-2 px-3">1.000e-5 mol</td>
+                  <td id="t4MassPopc" class="py-2 px-3 font-bold text-[#334155]">0.0076 g</td>
+                  <td id="t4VolPopc" class="py-2 px-3 font-bold text-[#334155]">100 &mu;L (0.100 mL)</td>
+                  <td class="py-2 px-3">1.0</td>
+                </tr>
+                <tr>
+                  <td class="py-2 px-3 font-sans font-semibold">5% (w/v) SMA in Buffer</td>
+                  <td class="py-2 px-3">5% w/v (0.0500 g/mL)</td>
+                  <td id="t4MmSma" class="py-2 px-3">8948</td>
+                  <td id="t4MolSma" class="py-2 px-3">8.382e-7 mol</td>
+                  <td id="t4MassSma" class="py-2 px-3 font-bold text-[#334155]">0.0075 g</td>
+                  <td id="t4VolSma" class="py-2 px-3 font-bold text-[#334155]">150 &mu;L (0.150 mL)</td>
+                  <td class="py-2 px-3">1.5</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Step 4 Simplified Procedure -->
+        <div class="bg-[#f8f8f7] border border-[var(--border)] rounded p-4 space-y-3">
+          <div class="text-xs font-bold uppercase tracking-wider text-[#334155]">
+            Step 4 Procedure: Dialysis, Freeze-Drying &amp; Nanodisc Assembly
+          </div>
+          <ol class="space-y-2.5 text-sm leading-relaxed list-decimal list-inside">
+            <li>
+              <strong>Dialysis:</strong> Transfer the clear hydrolyzed SMA solution from Step 3 into an <strong>appropriate dialysis bag</strong> and dialyze thoroughly against deionized water (changing the outer water bath 3&ndash;4 times) to remove excess NaOH and salts.
+            </li>
+            <li>
+              <strong>Freezing &amp; Lyophilization:</strong> Freeze the dialyzed polymer solution completely and <strong>lyophilize (freeze-dry)</strong> it to isolate the pure, water-soluble SMA copolymer as a dry powder.
+            </li>
+            <li>
+              <strong>Prepare 5% (w/v) Polymer Solution in Buffer:</strong> Weigh <span id="proc4SmaG" class="pill-purple">0.0075 g (7.50 mg)</span> of the lyophilized SMA polymer and dissolve it in <span id="proc4SmaBuf" class="pill-purple">150 &mu;L (0.150 mL)</span> of buffer to obtain a <strong>5% (w/v) polymer solution</strong>.
+            </li>
+            <li>
+              <strong>Prepare 100 mM POPC Stock from Solid Lipid:</strong> Weigh <span id="proc4PopcG" class="pill-purple">0.0076 g (7.60 mg)</span> of <strong>solid POPC lipid</strong> (MW 760.08 g/mol) and suspend/hydrate it in <span id="proc4PopcBuf" class="pill-purple">100 &mu;L (0.100 mL)</span> of buffer to make a <strong>100 mM POPC</strong> stock solution.
+            </li>
+            <li>
+              <strong>Mix at 1 : 1.5 (Lipid : Polymer, v/v) Ratio:</strong> Mix <span id="proc4PopcVol" class="pill-purple">100 &mu;L</span> of the <strong>100 mM POPC</strong> stock with <span id="proc4SmaVolVV" class="pill-purple">150 &mu;L</span> of the <strong>5% SMA polymer solution</strong> for a <strong>1 : 1.5 (v/v)</strong> lipid-to-polymer ratio (total volume <span id="proc4TotalVol" class="pill-purple">250 &mu;L</span>).
+            </li>
+            <li>
+              <strong>Freeze&ndash;Thaw Cycles &amp; DLS Size Check:</strong> Perform <strong>three (3) freeze&ndash;thaw cycles</strong> with <strong>gentle mixing</strong> until the suspension clarifies into nanodiscs, then analyze the sample on <strong>Dynamic Light Scattering (DLS)</strong> to check the hydrodynamic size of the nanodiscs.
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- Acknowledgment Card -->
+      <div class="proc-card text-center space-y-2">
+        <div class="text-xs font-bold uppercase tracking-wider text-[#a51c30]">
+          Acknowledgment
+        </div>
+        <p class="text-sm text-[var(--muted-foreground)] max-w-3xl mx-auto">
+          We gratefully acknowledge the scientific and membrane-biophysics community for establishing, validating, and openly sharing the standard RAFT polymerization, end-group cleavage, alkaline hydrolysis, and SMALP nanodisc assembly protocols from which this interactive workflow is adapted.
+        </p>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer id="wrapper-footer">
+    <div class="container">
+      <div class="footer-main-grid">
+        <div class="footer-col footer-lab-id">
+          <img class="footer-lab-thumb" src="assets/images/biomac_toc.jpg" alt="Shah Lab Nanodisc Icon">
+          <div>
+            <h4>Shah Biomaterials &amp; Polymer Chemistry</h4>
+            <p>
+              Department of Chemistry &amp; Biochemistry<br>
+              Miami University &bull; Pearson Hall / Hughes Laboratories<br>
+              Oxford, OH 45056 (Open to Immediate Relocation)<br>
+              <a href="mailto:mzeeshanshahkazmi@gmail.com">mzeeshanshahkazmi@gmail.com</a> | <a href="mailto:shahm@miamioh.edu">shahm@miamioh.edu</a><br>
+              Phone: +1 (513) 620-0653
+            </p>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Quick Navigation</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="research.html">Research Thrusts</a></li>
+            <li><a href="about.html">About &amp; Mentorship</a></li>
+            <li><a href="publications.html">Publications &amp; Procedures</a></li>
+            <li><a href="skills.html">Skills, Instrumentation &amp; CV</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Academic Profiles &amp; Documents</h4>
+          <ul>
+            <li><a href="assets/docs/Muhammad_Zeeshan_Shah_CV.pdf" target="_blank">Curriculum Vitae (PDF)</a></li>
+            <li><a href="assets/docs/Muhammad_Zeeshan_Shah_Research_Statement.pdf" target="_blank">Statement of Research Interests (PDF)</a></li>
+            <li><a href="https://scholar.google.com/citations?user=PmU0ZBcAAAAJ&hl=en&oi=ao" target="_blank" rel="noopener">Google Scholar Profile</a></li>
+            <li><a href="https://www.linkedin.com/in/muhammad-zeeshan-shah-kazmi" target="_blank" rel="noopener">LinkedIn (/in/muhammad-zeeshan-shah-kazmi)</a></li>
+            <li><a href="https://zschem.github.io" target="_blank" rel="noopener">GitHub Portfolio (zschem.github.io)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="branding_footer">
+      <div class="branding-container container">
+        <div class="copyright">
+          <span>Copyright &copy; 2026 Muhammad Zeeshan Shah &bull; Design inspired by Harvard Shair Lab</span> |
+          <a href="research.html">Research</a> |
+          <a href="publications.html">Publications</a> |
+          <a href="assets/docs/Muhammad_Zeeshan_Shah_CV.pdf" target="_blank">CV</a> |
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="admin-login">
+          <a href="mailto:mzeeshanshahkazmi@gmail.com">Inquire / Collaborate</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal Backdrop, Drawer & Search Modal -->
+  <div id="modal-backdrop" class="modal-backdrop-custom"></div>
+
+  <aside id="slide-in-drawer" class="slide-in-drawer" aria-label="Extended Navigation">
+    <div class="drawer-header">
+      <strong>Shah Lab Navigation</strong>
+      <button type="button" class="drawer-close-btn" data-close-modal aria-label="Close menu">&times;</button>
+    </div>
+    <ul class="drawer-nav-list">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li>
+        <a href="about.html">Team &amp; Biography</a>
+        <ul class="drawer-sublist">
+          <li><a href="about.html">Muhammad Zeeshan Shah</a></li>
+          <li><a href="about.html#collaborators">Advisors &amp; Collaborators</a></li>
+          <li><a href="about.html#mentorship">Mentored Researchers (13)</a></li>
+          <li><a href="about.html#leadership">ACS Leadership &amp; Awards</a></li>
+        </ul>
+      </li>
+      <li><a href="publications.html">Publications (15) &amp; Procedures</a></li>
+      <li><a href="skills.html">Skills, Instrumentation &amp; Docs</a></li>
+      <li><a href="contact.html">Contact &amp; Opportunities</a></li>
+    </ul>
+  </aside>
+
+  <div id="search-modal" class="search-modal" role="dialog" aria-label="Site Search">
+    <div class="search-modal-inner">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <strong>Search Shah Lab Website (Research, Publications, Procedures)</strong>
+        <button type="button" class="drawer-close-btn" data-close-modal aria-label="Close search">&times;</button>
+      </div>
+      <div class="search-input-group">
+        <input type="search" id="site-search-input" placeholder="Search SMA, VEMA, nanodiscs, RAFT, PEGylation, EPR, publications...">
+      </div>
+      <div id="site-search-results" class="search-results-live"></div>
+    </div>
+  </div>
+
+  <script src="assets/js/main.js"></script>
+  <script>
+    const MW = {
+      PADTC: 350.6,
+      STYRENE: 104.15,
+      MAN: 98.06,
+      AHCN: 244.34,
+      BPO: 242.0,
+      NAOH: 40.0,
+      POPC: 760.08
+    };
+
+    const DENSITY = {
+      STYRENE: 0.909,
+      DIOXANE: 1.033
+    };
+
+    const SHEET_DEFAULT_STYRENE_G = 3.66076835;
+
+    let currentRatio = '3:1';
+    let showCalculations = false;
+    let currentStep1YieldG = 3.747663;
+    let currentPolymerMn = 8948.0;
+
+    function getStep1Factors(ratioMode) {
+      const styRatio = ratioMode === '3:1' ? 75 : 50;
+      const manRatio = 25;
+      const ctaRatio = 1;
+      const ahcnRatio = 0.2;
+
+      const molStyPerG = 1 / MW.STYRENE;
+      const molCtaPerGSty = molStyPerG / styRatio;
+      const molManPerGSty = molCtaPerGSty * manRatio;
+      const molAhcnPerGSty = molCtaPerGSty * ahcnRatio;
+
+      const gCtaPerGSty = molCtaPerGSty * MW.PADTC;
+      const gManPerGSty = molManPerGSty * MW.MAN;
+      const gAhcnPerGSty = molAhcnPerGSty * MW.AHCN;
+
+      const totalReagentsPerGSty = 1 + gCtaPerGSty + gManPerGSty + gAhcnPerGSty;
+      const yieldPerGSty = 0.75 * totalReagentsPerGSty;
+
+      return {
+        styRatio,
+        manRatio,
+        ctaRatio,
+        ahcnRatio,
+        totalReagentsPerGSty,
+        yieldPerGSty
+      };
+    }
+
+    function setSMARatio(ratioMode) {
+      currentRatio = ratioMode;
+      const btn31 = document.getElementById('btnRatio31');
+      const btn21 = document.getElementById('btnRatio21');
+      if (ratioMode === '3:1') {
+        btn31.className = 'px-3.5 py-1.5 rounded text-xs font-bold transition cursor-pointer bg-[#a51c30] text-white border-none';
+        btn21.className = 'px-3.5 py-1.5 rounded text-xs font-bold transition cursor-pointer bg-transparent text-[#4a4a4a] hover:text-[#111111] border-none';
+      } else {
+        btn21.className = 'px-3.5 py-1.5 rounded text-xs font-bold transition cursor-pointer bg-[#a51c30] text-white border-none';
+        btn31.className = 'px-3.5 py-1.5 rounded text-xs font-bold transition cursor-pointer bg-transparent text-[#4a4a4a] hover:text-[#111111] border-none';
+      }
+      document.getElementById('s1RatioLabel').textContent = 'SMA ' + ratioMode + (ratioMode === '3:1' ? ' (75:25)' : ' (50:25)');
+      const styG = parseFloat(document.getElementById('inputStyreneGrams').value) || SHEET_DEFAULT_STYRENE_G;
+      updateFromStyreneGrams(styG, true);
+    }
+
+    function onTargetPolymerInput(val) {
+      const targetYieldG = parseFloat(val);
+      if (isNaN(targetYieldG) || targetYieldG <= 0) return;
+      const { yieldPerGSty } = getStep1Factors(currentRatio);
+      const styG = targetYieldG / yieldPerGSty;
+      document.getElementById('inputStyreneGrams').value = styG.toFixed(4);
+      renderStep1(styG, targetYieldG);
+    }
+
+    function onStyreneGramsInput(val) {
+      const styG = parseFloat(val);
+      if (isNaN(styG) || styG <= 0) return;
+      updateFromStyreneGrams(styG, true);
+    }
+
+    function updateFromStyreneGrams(styG, updateTargetInput) {
+      const { yieldPerGSty } = getStep1Factors(currentRatio);
+      const targetYieldG = styG * yieldPerGSty;
+      if (updateTargetInput) {
+        document.getElementById('inputTargetPolymer').value = targetYieldG.toFixed(4);
+      }
+      renderStep1(styG, targetYieldG);
+    }
+
+    function setTargetPolymerPreset(grams) {
+      document.getElementById('inputTargetPolymer').value = Number(grams).toFixed(4);
+      onTargetPolymerInput(grams);
+    }
+
+    function resetStep1Default() {
+      document.getElementById('inputStyreneGrams').value = SHEET_DEFAULT_STYRENE_G.toFixed(4);
+      updateFromStyreneGrams(SHEET_DEFAULT_STYRENE_G, true);
+    }
+
+    function renderStep1(styG, yieldG) {
+      currentStep1YieldG = yieldG;
+      const { styRatio, manRatio } = getStep1Factors(currentRatio);
+
+      const molSty = styG / MW.STYRENE;
+      const molPadtc = molSty / styRatio;
+      const molMan = molPadtc * manRatio;
+      const molAhcn = molPadtc * 0.2;
+
+      const gPadtc = molPadtc * MW.PADTC;
+      const gMan = molMan * MW.MAN;
+      const gAhcn = molAhcn * MW.AHCN;
+      const gDioxane = styG + gPadtc + gMan + gAhcn;
+
+      const mlSty = styG / DENSITY.STYRENE;
+      const mlDioxane = gDioxane / DENSITY.DIOXANE;
+
+      document.getElementById('cardStyreneG').textContent = styG.toFixed(4) + ' g';
+      document.getElementById('cardStyreneML').textContent = '~' + mlSty.toFixed(2) + ' mL';
+      document.getElementById('cardManG').textContent = gMan.toFixed(4) + ' g';
+      document.getElementById('cardPadtcG').textContent = gPadtc.toFixed(4) + ' g';
+      document.getElementById('cardPadtcMG').textContent = (gPadtc * 1000).toFixed(1) + ' mg';
+      document.getElementById('cardAhcnG').textContent = gAhcn.toFixed(4) + ' g';
+      document.getElementById('cardAhcnMG').textContent = (gAhcn * 1000).toFixed(1) + ' mg';
+      document.getElementById('cardDioxane1G').textContent = gDioxane.toFixed(4) + ' g';
+      document.getElementById('cardDioxane1ML').textContent = '~' + mlDioxane.toFixed(2) + ' mL';
+      document.getElementById('cardYield1G').textContent = yieldG.toFixed(4) + ' g';
+
+      document.getElementById('btnUseStep1Val').textContent = yieldG.toFixed(4) + ' g';
+
+      const theoMn = currentRatio === '3:1' ? '11,290 g/mol' : '8,344 g/mol';
+      document.getElementById('s1TheoMn').textContent = theoMn;
+      document.getElementById('t1RatioSty').textContent = styRatio;
+      document.getElementById('t1MolPadtc').textContent = molPadtc.toExponential(4);
+      document.getElementById('t1MassPadtc').textContent = gPadtc.toFixed(4) + ' g';
+      document.getElementById('t1MolSty').textContent = molSty.toFixed(6);
+      document.getElementById('t1MassSty').textContent = styG.toFixed(4) + ' g';
+      document.getElementById('t1MolMan').textContent = molMan.toFixed(6);
+      document.getElementById('t1MassMan').textContent = gMan.toFixed(4) + ' g';
+      document.getElementById('t1MolAhcn').textContent = molAhcn.toExponential(4);
+      document.getElementById('t1MassAhcn').textContent = gAhcn.toFixed(4) + ' g';
+      document.getElementById('t1MassDiox').textContent = gDioxane.toFixed(4) + ' g';
+      document.getElementById('t1MassYield').textContent = yieldG.toFixed(4) + ' g';
+
+      document.getElementById('proc1Sty').textContent = styG.toFixed(4) + ' g (~' + mlSty.toFixed(2) + ' mL)';
+      document.getElementById('proc1Man').textContent = gMan.toFixed(4) + ' g';
+      document.getElementById('proc1Padtc').textContent = gPadtc.toFixed(4) + ' g (' + (gPadtc * 1000).toFixed(1) + ' mg)';
+      document.getElementById('proc1Diox').textContent = gDioxane.toFixed(4) + ' g (~' + mlDioxane.toFixed(2) + ' mL)';
+      document.getElementById('proc1Ahcn').textContent = gAhcn.toFixed(4) + ' g (' + (gAhcn * 1000).toFixed(1) + ' mg)';
+      document.getElementById('proc1Yield').textContent = yieldG.toFixed(4) + ' g';
+    }
+
+    function onPolymerMnChange(val) {
+      const mn = parseFloat(val);
+      if (isNaN(mn) || mn <= 0) return;
+      currentPolymerMn = mn;
+      document.getElementById('inputPolymerMn2').value = mn;
+      document.getElementById('inputPolymerMn3').value = mn;
+      document.getElementById('s1ActiveMn').textContent = mn.toLocaleString() + ' g/mol';
+      updateStep2();
+      updateStep3();
+      const s4G = parseFloat(document.getElementById('inputStep4PolymerG').value) || 0.0075;
+      onStep4PolymerInput(s4G);
+    }
+
+    function updateStep2() {
+      const polyG = parseFloat(document.getElementById('inputStep2Polymer').value);
+      if (isNaN(polyG) || polyG <= 0) return;
+
+      const molPoly = polyG / currentPolymerMn;
+      const molBpo = molPoly * 20;
+      const gBpo = molBpo * MW.BPO;
+      const gDiox = 4 * (polyG + gBpo);
+      const mlDiox = gDiox / DENSITY.DIOXANE;
+
+      document.getElementById('cardS2PolyG').textContent = polyG.toFixed(4) + ' g';
+      document.getElementById('cardS2PolyMnNote').innerHTML = '<i>M</i><sub>n</sub> = ' + currentPolymerMn.toLocaleString() + ' g/mol';
+      document.getElementById('cardS2BpoG').textContent = gBpo.toFixed(4) + ' g';
+      document.getElementById('cardS2BpoMG').textContent = (gBpo * 1000).toFixed(1) + ' mg';
+      document.getElementById('cardS2DioxG').textContent = gDiox.toFixed(4) + ' g';
+      document.getElementById('cardS2DioxML').textContent = '~' + mlDiox.toFixed(2) + ' mL';
+
+      document.getElementById('btnUseStep2Val').textContent = polyG.toFixed(4) + ' g';
+
+      document.getElementById('t2HeaderMn').textContent = currentPolymerMn.toLocaleString();
+      document.getElementById('t2MmPoly').textContent = currentPolymerMn;
+      document.getElementById('t2MolPoly').textContent = molPoly.toExponential(4);
+      document.getElementById('t2MassPoly').textContent = polyG.toFixed(4) + ' g';
+      document.getElementById('t2MolBpo').textContent = molBpo.toFixed(6);
+      document.getElementById('t2MassBpo').textContent = gBpo.toFixed(4) + ' g';
+      document.getElementById('t2MassDiox').textContent = gDiox.toFixed(4) + ' g';
+
+      document.getElementById('proc2Poly').textContent = polyG.toFixed(4) + ' g';
+      document.getElementById('proc2Diox').textContent = gDiox.toFixed(4) + ' g (~' + mlDiox.toFixed(2) + ' mL)';
+      document.getElementById('proc2Bpo').textContent = gBpo.toFixed(4) + ' g (' + (gBpo * 1000).toFixed(1) + ' mg)';
+    }
+
+    function setStep2Preset(val) {
+      document.getElementById('inputStep2Polymer').value = Number(val).toFixed(4);
+      updateStep2();
+    }
+
+    function useStep1YieldForStep2() {
+      document.getElementById('inputStep2Polymer').value = currentStep1YieldG.toFixed(4);
+      updateStep2();
+    }
+
+    function updateStep3() {
+      const polyG = parseFloat(document.getElementById('inputStep3Polymer').value);
+      if (isNaN(polyG) || polyG <= 0) return;
+
+      const molPoly = polyG / currentPolymerMn;
+      const molAnh = molPoly * 25;
+      const molNaoh = molAnh * 4;
+      const gNaoh = molNaoh * MW.NAOH;
+      const mlNaoh4M = (molNaoh * 1000) / 4.0;
+      const mlWater = (polyG / 0.3) * 5.0;
+
+      document.getElementById('cardS3PolyG').textContent = polyG.toFixed(4) + ' g';
+      document.getElementById('cardS3PolyMnNote').innerHTML = '<i>M</i><sub>n</sub> = ' + currentPolymerMn.toLocaleString() + ' g/mol';
+      document.getElementById('cardS3NaohML').textContent = mlNaoh4M.toFixed(2) + ' mL';
+      document.getElementById('cardS3NaohG').textContent = '(= ' + gNaoh.toFixed(4) + ' g NaOH)';
+      document.getElementById('cardS3WaterML').textContent = mlWater.toFixed(2) + ' mL';
+
+      document.getElementById('t3HeaderMn').textContent = currentPolymerMn.toLocaleString();
+      document.getElementById('t3MmPoly').textContent = currentPolymerMn;
+      document.getElementById('t3MassPoly').textContent = polyG.toFixed(4) + ' g';
+      document.getElementById('t3MolPoly').textContent = molPoly.toExponential(4);
+      document.getElementById('t3MolAnh').textContent = molAnh.toFixed(6);
+      document.getElementById('t3MolNaoh').textContent = molNaoh.toFixed(6);
+      document.getElementById('t3MassNaoh').textContent = gNaoh.toFixed(4) + ' g';
+      document.getElementById('t3VolNaoh').textContent = mlNaoh4M.toFixed(3) + ' mL';
+
+      document.getElementById('proc3Poly').textContent = polyG.toFixed(4) + ' g';
+      document.getElementById('proc3Water').textContent = mlWater.toFixed(2) + ' mL';
+      document.getElementById('proc3NaohML').textContent = mlNaoh4M.toFixed(2) + ' mL (' + (mlNaoh4M * 1000).toFixed(0) + ' \u03BCL)';
+      document.getElementById('proc3NaohG').textContent = gNaoh.toFixed(4) + ' g';
+
+      const btnS3 = document.getElementById('btnUseStep3Val');
+      if (btnS3) btnS3.textContent = polyG.toFixed(4) + ' g';
+    }
+
+    function setStep3Preset(val) {
+      document.getElementById('inputStep3Polymer').value = Number(val).toFixed(4);
+      updateStep3();
+    }
+
+    function useStep2MassForStep3() {
+      const s2Val = parseFloat(document.getElementById('inputStep2Polymer').value) || 1.8198;
+      document.getElementById('inputStep3Polymer').value = s2Val.toFixed(4);
+      updateStep3();
+    }
+
+    function onStep4PolymerInput(val) {
+      const smaG = parseFloat(val);
+      if (isNaN(smaG) || smaG <= 0) return;
+      const smaVolUL = (smaG / 0.0500) * 1000.0;
+      const popcVolUL = smaVolUL / 1.5;
+      document.getElementById('inputStep4PopcVol').value = popcVolUL.toFixed(1);
+      renderStep4(smaG, popcVolUL);
+    }
+
+    function onStep4PopcVolInput(val) {
+      const popcVolUL = parseFloat(val);
+      if (isNaN(popcVolUL) || popcVolUL <= 0) return;
+      const smaVolUL = 1.5 * popcVolUL;
+      const smaG = (smaVolUL / 1000.0) * 0.0500;
+      document.getElementById('inputStep4PolymerG').value = smaG.toFixed(4);
+      renderStep4(smaG, popcVolUL);
+    }
+
+    function setStep4PolymerPreset(valG) {
+      document.getElementById('inputStep4PolymerG').value = Number(valG).toFixed(4);
+      onStep4PolymerInput(valG);
+    }
+
+    function setStep4PopcVolPreset(valUL) {
+      document.getElementById('inputStep4PopcVol').value = valUL;
+      onStep4PopcVolInput(valUL);
+    }
+
+    function useStep3MassForStep4() {
+      const s3Val = parseFloat(document.getElementById('inputStep3Polymer').value) || 0.3000;
+      setStep4PolymerPreset(s3Val);
+    }
+
+    function renderStep4(smaG, popcVolUL) {
+      const smaVolUL = (smaG / 0.0500) * 1000.0;
+      const smaVolML = smaVolUL / 1000.0;
+      const popcVolML = popcVolUL / 1000.0;
+
+      const molPopc = 0.100 * (popcVolML / 1000.0);
+      const popcG = molPopc * MW.POPC;
+
+      const molSma = smaG / currentPolymerMn;
+      const totalVolUL = popcVolUL + smaVolUL;
+      const totalVolML = totalVolUL / 1000.0;
+
+      document.getElementById('cardS4PopcG').textContent = popcG.toFixed(4) + ' g';
+      document.getElementById('cardS4PopcMG').textContent = (popcG * 1000).toFixed(2) + ' mg';
+      document.getElementById('cardS4PopcVol').textContent = popcVolUL.toFixed(0) + ' \u03BCL';
+      document.getElementById('cardS4PopcML').textContent = popcVolML.toFixed(3) + ' mL';
+
+      document.getElementById('cardS4SmaG').textContent = smaG.toFixed(4) + ' g';
+      document.getElementById('cardS4SmaMG').textContent = (smaG * 1000).toFixed(2) + ' mg';
+      document.getElementById('cardS4SmaVolVV').textContent = smaVolUL.toFixed(0) + ' \u03BCL';
+      document.getElementById('cardS4SmaML').textContent = smaVolML.toFixed(3) + ' mL';
+
+      document.getElementById('cardS4TotalBuf').textContent = totalVolUL.toFixed(0) + ' \u03BCL';
+      document.getElementById('cardS4TotalBufML').textContent = totalVolML.toFixed(3) + ' mL total';
+      document.getElementById('cardS4TotalVol').textContent = totalVolUL.toFixed(0) + ' \u03BCL';
+
+      document.getElementById('t4MolPopc').textContent = molPopc.toExponential(4) + ' mol';
+      document.getElementById('t4MassPopc').textContent = popcG.toFixed(4) + ' g';
+      document.getElementById('t4VolPopc').textContent = popcVolUL.toFixed(0) + ' \u03BCL (' + popcVolML.toFixed(3) + ' mL)';
+      document.getElementById('t4MmSma').textContent = currentPolymerMn;
+      document.getElementById('t4MolSma').textContent = molSma.toExponential(4) + ' mol';
+      document.getElementById('t4MassSma').textContent = smaG.toFixed(4) + ' g';
+      document.getElementById('t4VolSma').textContent = smaVolUL.toFixed(0) + ' \u03BCL (' + smaVolML.toFixed(3) + ' mL)';
+
+      document.getElementById('proc4SmaG').textContent = smaG.toFixed(4) + ' g (' + (smaG * 1000).toFixed(2) + ' mg)';
+      document.getElementById('proc4SmaBuf').textContent = smaVolUL.toFixed(0) + ' \u03BCL (' + smaVolML.toFixed(3) + ' mL)';
+      document.getElementById('proc4PopcG').textContent = popcG.toFixed(4) + ' g (' + (popcG * 1000).toFixed(2) + ' mg)';
+      document.getElementById('proc4PopcBuf').textContent = popcVolUL.toFixed(0) + ' \u03BCL (' + popcVolML.toFixed(3) + ' mL)';
+      document.getElementById('proc4PopcVol').textContent = popcVolUL.toFixed(0) + ' \u03BCL';
+      document.getElementById('proc4SmaVolVV').textContent = smaVolUL.toFixed(0) + ' \u03BCL';
+      document.getElementById('proc4TotalVol').textContent = totalVolUL.toFixed(0) + ' \u03BCL (' + totalVolML.toFixed(3) + ' mL)';
+    }
+
+    function toggleAllCalculations() {
+      showCalculations = !showCalculations;
+      const ids = ['calcTable1', 'calcTable2', 'calcTable3', 'calcTable4'];
+      ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (showCalculations) {
+          el.classList.remove('hidden');
+        } else {
+          el.classList.add('hidden');
+        }
+      });
+      document.getElementById('calcToggleText').textContent = showCalculations
+        ? 'Hide Mole Ratios & Calculations'
+        : 'Show Mole Ratios & Calculations';
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      resetStep1Default();
+      updateStep2();
+      updateStep3();
+      setStep4PolymerPreset(0.0075);
+    });
+  </script>
+</body>
+</html>

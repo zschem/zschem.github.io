@@ -40,6 +40,11 @@ const SITE_SEARCH_INDEX = [
     snippet: "First-author and co-authored papers in Biomacromolecules (2024), Polymer Chemistry (2026, 2022), ACS Macro Letters (2026), Polymer (2026), BBA-Biomembranes (2025)."
   },
   {
+    title: "Procedure 1: SMA 2:1 & SMA 3:1 Synthesis and Making Lipid Discs (SMALPs)",
+    url: "sma-synthesis-procedure.html",
+    snippet: "Interactive 4-step laboratory protocol and stoichiometric calculator for SMA 2:1 & 3:1 RAFT polymerization, BPO end-group removal, NaOH hydrolysis, and lipid nanodisc formulation."
+  },
+  {
     title: "Technical Skills, Analytical Instrumentation & CV Downloads",
     url: "skills.html",
     snippet: "RAFT polymerization, Liposomes (POPC, POPG, DMPC), HPLC, SEC/GPC, DLS, TEM/SEM, 1D 1H & DOSY NMR, CW-EPR, Rheometry, Instron, ICP-OES."
@@ -119,22 +124,35 @@ document.addEventListener("DOMContentLoaded", () => {
     searchInput.addEventListener("input", (e) => renderSearchResults(e.target.value));
   }
 
-  // Publications page filtering
+  // Publications page tab switching ("All Papers" vs "Procedures") and live search filtering
   const pubFilterBtns = document.querySelectorAll(".pub-filter-btn");
   const pubFilterInput = document.getElementById("pub-live-filter");
   const pubEntries = document.querySelectorAll(".pub-entry");
+  const tabPanelPapers = document.getElementById("tab-panel-papers");
+  const tabPanelProcedures = document.getElementById("tab-panel-procedures");
 
   if (pubEntries.length > 0) {
     let activeCategory = "all";
     let filterQuery = "";
 
     const updatePublicationsView = () => {
+      if (tabPanelPapers && tabPanelProcedures) {
+        if (activeCategory === "procedures") {
+          tabPanelPapers.style.display = "none";
+          tabPanelProcedures.style.display = "block";
+        } else {
+          tabPanelPapers.style.display = "block";
+          tabPanelProcedures.style.display = "none";
+        }
+      }
+
       pubEntries.forEach(entry => {
         const cats = (entry.getAttribute("data-category") || "").toLowerCase();
         const text = entry.textContent.toLowerCase();
-        const matchesCat = activeCategory === "all" || cats.includes(activeCategory);
+        const isProcedureEntry = cats.includes("procedures");
+        const matchesTab = activeCategory === "procedures" ? isProcedureEntry : !isProcedureEntry;
         const matchesText = !filterQuery || text.includes(filterQuery);
-        entry.style.display = (matchesCat && matchesText) ? "" : "none";
+        entry.style.display = (matchesTab && matchesText) ? "" : "none";
       });
     };
 
@@ -143,9 +161,24 @@ document.addEventListener("DOMContentLoaded", () => {
         pubFilterBtns.forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
         activeCategory = btn.getAttribute("data-filter") || "all";
+        if (history.replaceState) {
+          const newHash = activeCategory === "procedures" ? "#procedures" : "";
+          history.replaceState(null, "", window.location.pathname + newHash);
+        }
         updatePublicationsView();
       });
     });
+
+    if (window.location.hash === "#procedures") {
+      const procBtn = document.querySelector('.pub-filter-btn[data-filter="procedures"]');
+      if (procBtn) {
+        pubFilterBtns.forEach(b => b.classList.remove("active"));
+        procBtn.classList.add("active");
+        activeCategory = "procedures";
+      }
+    }
+
+    updatePublicationsView();
 
     if (pubFilterInput) {
       pubFilterInput.addEventListener("input", (e) => {

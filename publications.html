@@ -102,10 +102,13 @@
       <div class="pub-controls">
         <div class="pub-filter-btns">
           <button type="button" class="pub-filter-btn active" data-filter="all">All Papers (15)</button>
+          <button type="button" class="pub-filter-btn" data-filter="procedures">Procedures</button>
         </div>
-        <input type="search" id="pub-live-filter" class="pub-search-input" placeholder="Filter by keyword, journal, or co-author...">
+        <input type="search" id="pub-live-filter" class="pub-search-input" placeholder="Filter by keyword, journal, protocol, or co-author...">
       </div>
 
+      <!-- TAB PANEL 1: ALL PAPERS -->
+      <div id="tab-panel-papers">
       <!-- Published & In-Press Journal Articles -->
       <h2 style="margin-bottom: 24px; border-bottom: 3px solid var(--color-bg-accent); padding-bottom: 10px;">Published &amp; In-Press Peer-Reviewed Journal Articles</h2>
 
@@ -306,6 +309,27 @@
           </ol>
         </div>
       </section>
+      </div><!-- /#tab-panel-papers -->
+
+      <!-- TAB PANEL 2: PROCEDURES (Designed for 10–20 interactive laboratory protocols) -->
+      <div id="tab-panel-procedures" style="display: none;">
+        <h2 style="margin-bottom: 24px; border-bottom: 3px solid var(--color-bg-accent); padding-bottom: 10px;">Interactive Synthesis &amp; Biophysical Laboratory Procedures</h2>
+
+        <!-- Procedure 1: SMA 2:1 & SMA 3:1 Copolymer Synthesis and Making Lipid Discs -->
+        <article class="pub-entry" data-category="procedures" style="cursor: pointer;" onclick="if(!event.target.closest('a')){window.location.href='sma-synthesis-procedure.html';}">
+          <div class="pub-figure">
+            <a href="sma-synthesis-procedure.html">
+              <img src="assets/images/vesicle_formulation.jpg" alt="SMA 2:1 and 3:1 Synthesis and Lipid Nanodisc (SMALP) Procedure">
+            </a>
+          </div>
+          <div>
+            <span class="pub-meta-badge">Procedure 1 &bull; Interactive Synthesis &amp; Lipid Nanodisc Calculator</span>
+            <h4><a href="sma-synthesis-procedure.html">SMA 2:1 &amp; SMA 3:1 Copolymer Synthesis and Making Lipid Discs (SMALPs): End-to-End RAFT Polymerization, End-Group Removal, Hydrolysis &amp; Nanodisc Formulation</a></h4>
+            <p class="pub-journal"><em>Interactive 4-Step Laboratory Protocol &amp; Stoichiometric Calculator</em> &bull; Styrene&ndash;Maleic Anhydride (2:1 &amp; 3:1) RAFT Synthesis &rarr; Benzoyl Peroxide End-Capping &rarr; NaOH Ring-Opening Hydrolysis &rarr; Extruded MLV / LUV Self-Assembly &amp; DLS Sizing</p>
+            <p class="pub-authors"><strong>Shah, M.Z.</strong> &bull; <a href="sma-synthesis-procedure.html" style="font-weight: 700; color: var(--color-text-accent);">Open Interactive Procedure &amp; Calculator &rarr;</a></p>
+          </div>
+        </article>
+      </div><!-- /#tab-panel-procedures -->
 
     </main>
   </div>
