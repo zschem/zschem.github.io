@@ -20,14 +20,14 @@ const SITE_SEARCH_INDEX = [
     snippet: "Nucleophilic ring-opening bioconjugation with PEG chains, amino acids, and cationic/anionic/zwitterionic modifiers stable across pH 3.0–9.0 and up to 30 mM Mg2+."
   },
   {
-    title: "Ultra-Mild (<60 s) Cyclohexyl-VEMA (CH-VEMA) Nanoparticle Formulation",
+    title: "Ultra-Mild (<60 s) Special Class of Aliphatic VEMA Nanoparticle Formulation",
     url: "research.html#thrust-rapid",
     snippet: "Spontaneous aqueous self-assembly with lipid bilayers in under 60 seconds without mechanical shear, organic co-solvents, or freeze–thaw cycles."
   },
   {
-    title: "Muhammad Zeeshan Shah, Ph.D. Candidate — Biography & Education",
+    title: "Muhammad Zeeshan Shah, Ph.D. — Biography & Education",
     url: "about.html",
-    snippet: "Ph.D. in Chemistry at Miami University (Defending Oct 19, 2026), advised by Prof. Dominik Konkolewicz & Prof. Rick Page in collaboration with Prof. Gary Lorigan."
+    snippet: "Ph.D. in Chemistry at Miami University (Defense date: Oct 19, 2026), advised by Prof. Dominik Konkolewicz & Prof. Rick Page in collaboration with Prof. Gary Lorigan."
   },
   {
     title: "Team, Collaborators & Mentorship (13 Junior Researchers)",
@@ -35,7 +35,7 @@ const SITE_SEARCH_INDEX = [
     snippet: "Lead Research Mentor for 11 undergraduate and 2 graduate students; President of ACS POLY/PMSE Cincinnati Chapter (2024–2025)."
   },
   {
-    title: "Publications (9 Peer-Reviewed Articles + 6 Manuscripts Submitted/In Prep)",
+    title: "Publications (9 Peer-Reviewed Journal Articles)",
     url: "publications.html",
     snippet: "First-author and co-authored papers in Biomacromolecules (2024), Polymer Chemistry (2026, 2022), ACS Macro Letters (2026), Polymer (2026), BBA-Biomembranes (2025)."
   },
@@ -52,7 +52,7 @@ const SITE_SEARCH_INDEX = [
   {
     title: "Contact & Collaboration Opportunities",
     url: "contact.html",
-    snippet: "Department of Chemistry & Biochemistry, Miami University, Oxford, OH | mzeeshanshahkazmi@gmail.com | shahm@miamioh.edu | +1 (513) 620-0653."
+    snippet: "Department of Chemistry & Biochemistry, Miami University, Oxford, OH | mzeeshanshahkazmi@gmail.com | shahm@miamioh.edu."
   }
 ];
 
@@ -186,113 +186,5 @@ document.addEventListener("DOMContentLoaded", () => {
         updatePublicationsView();
       });
     }
-  }
-
-  // Visual No-Code Editor Mode (Text + Click-to-Change Photos)
-  const adminFooterArea = document.querySelector(".admin-login");
-  if (adminFooterArea) {
-    const editToggleBtn = document.createElement("button");
-    editToggleBtn.type = "button";
-    editToggleBtn.id = "visual-edit-toggle";
-    editToggleBtn.textContent = "✏️ Edit Page & Photos";
-    editToggleBtn.style.cssText = "margin-left:12px; background:#a51c30; color:#fff; border:none; padding:5px 12px; border-radius:4px; font-size:0.78rem; font-weight:700; cursor:pointer;";
-    adminFooterArea.appendChild(editToggleBtn);
-
-    // Hidden file input for replacing clicked images
-    const imgFileInput = document.createElement("input");
-    imgFileInput.type = "file";
-    imgFileInput.accept = "image/*";
-    imgFileInput.style.display = "none";
-    document.body.appendChild(imgFileInput);
-
-    let activeTargetImg = null;
-    let isEditing = false;
-    let saveBtn = null;
-
-    imgFileInput.addEventListener("change", (e) => {
-      const file = e.target.files && e.target.files[0];
-      if (!file || !activeTargetImg) return;
-      const reader = new FileReader();
-      reader.onload = (ev) => {
-        activeTargetImg.src = ev.target.result;
-      };
-      reader.readAsDataURL(file);
-      imgFileInput.value = "";
-    });
-
-    const handleImageClick = (e) => {
-      if (!isEditing) return;
-      e.preventDefault();
-      e.stopPropagation();
-      activeTargetImg = e.currentTarget;
-      imgFileInput.click();
-    };
-
-    editToggleBtn.addEventListener("click", () => {
-      isEditing = !isEditing;
-      const editableNodes = document.querySelectorAll("h1, h2, h3, h4, p, li, figcaption, .metric-number, .metric-label, .navbar-brand-subtext, .thrust-tag, .pub-meta-badge");
-      const allImages = document.querySelectorAll("img");
-
-      editableNodes.forEach(el => {
-        if (el.closest("#visual-editor-bar")) return;
-        el.contentEditable = isEditing ? "true" : "false";
-        el.style.outline = isEditing ? "1px dashed rgba(165, 28, 48, 0.45)" : "";
-      });
-
-      allImages.forEach(img => {
-        if (isEditing) {
-          img.style.outline = "3px dashed #216890";
-          img.style.cursor = "pointer";
-          img.title = "Click to replace this photo from your computer";
-          img.addEventListener("click", handleImageClick);
-        } else {
-          img.style.outline = "";
-          img.style.cursor = "";
-          img.removeAttribute("title");
-          img.removeEventListener("click", handleImageClick);
-        }
-      });
-
-      if (isEditing) {
-        editToggleBtn.textContent = "✅ Exit Edit Mode";
-        if (!saveBtn) {
-          saveBtn = document.createElement("button");
-          saveBtn.type = "button";
-          saveBtn.textContent = "💾 Download Saved Page";
-          saveBtn.style.cssText = "margin-left:8px; background:#216890; color:#fff; border:none; padding:5px 12px; border-radius:4px; font-size:0.78rem; font-weight:700; cursor:pointer;";
-          saveBtn.addEventListener("click", () => {
-            editableNodes.forEach(el => {
-              el.removeAttribute("contenteditable");
-              el.style.outline = "";
-            });
-            allImages.forEach(img => {
-              img.style.outline = "";
-              img.style.cursor = "";
-              img.removeAttribute("title");
-              img.removeEventListener("click", handleImageClick);
-            });
-            editToggleBtn.remove();
-            saveBtn.remove();
-            imgFileInput.remove();
-            const pageFileName = window.location.pathname.split("/").pop() || "index.html";
-            const htmlContent = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
-            const blob = new Blob([htmlContent], { type: "text/html;charset=utf-8" });
-            const a = document.createElement("a");
-            a.href = URL.createObjectURL(blob);
-            a.download = pageFileName;
-            a.click();
-            location.reload();
-          });
-          adminFooterArea.appendChild(saveBtn);
-        }
-        alert("Visual Edit Mode ON:\n• Click any TEXT to type changes.\n• Click any PHOTO (outlined in blue) to choose a new image from your computer.\n• When done, click '💾 Download Saved Page' at the bottom right.");
-      } else {
-        editToggleBtn.textContent = "✏️ Edit Page & Photos";
-        if (saveBtn) {
-          saveBtn.remove();
-          saveBtn = null;
-        }
-      }
-    });
   }
 });
